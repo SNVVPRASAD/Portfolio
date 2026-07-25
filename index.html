@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siva Prasad Mandalapu — AI/ML Engineer</title>
+<meta name="description" content="AI/ML Engineer. Production ML, MLOps and generative AI in HIPAA-regulated clinical imaging and RBI-audited fraud systems.">
+<meta name="color-scheme" content="dark">
+<style>
+/* ============================================================
+   Tokens
+   ink      substrate, the board everything sits on
+   panel    raised instrument surface
+   rule     hairline, axis and divider
+   citron   the signal colour. one job per view.
+   peri     periwinkle, structural accent for links
+   ============================================================ */
+:root{
+  --ink:#0B0E1A;
+  --panel:#111527;
+  --panel-2:#151A30;
+  --rule:#232A45;
+  --rule-soft:#1A2039;
+  --text:#E4E8F5;
+  --dim:#8E99BC;
+  --dimmer:#5F6A8C;
+  --citron:#D9E64F;
+  --peri:#8CA0F0;
+
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", "Roboto Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --gut: clamp(20px, 5vw, 64px);
+  --maxw: 1180px;
+  --sec: clamp(72px, 11vw, 140px);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--text);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  font-variant-numeric:tabular-nums;
+}
+a{color:inherit}
+h1,h2,h3{margin:0;font-weight:600}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+
+/* numbers get their own typeface. this is the rule the page runs on. */
+.n{font-family:var(--mono);color:var(--citron);font-variant-numeric:tabular-nums;letter-spacing:-.01em;font-weight:600}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gut)}
+.sec{padding-block:var(--sec)}
+.sec + .sec{border-top:1px solid var(--rule-soft)}
+
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--dimmer);display:flex;align-items:center;gap:12px;margin-bottom:28px;
+}
+.eyebrow::after{content:"";height:1px;background:var(--rule);flex:1}
+.eyebrow b{color:var(--citron);font-weight:600}
+
+.wrap .h2{
+  font-family:var(--mono);font-weight:600;letter-spacing:-.035em;
+  font-size:clamp(28px,4.6vw,44px);line-height:1.05;color:var(--text);
+}
+/* guard: neutralise generic `section {}` / `footer {}` rules if this file ever
+   gets pasted alongside another stylesheet. costs nothing, saves a headache. */
+.sec,body .hero{border-bottom:0}
+.lede{color:var(--dim);max-width:62ch;margin-top:18px;font-size:clamp(15px,1.5vw,17px)}
+
+/* ---------- skip + progress + topbar ---------- */
+.skip{position:absolute;left:-999px;top:0;background:var(--citron);color:#0B0E1A;padding:10px 16px;font-family:var(--mono);font-size:13px;z-index:99}
+.skip:focus{left:8px;top:8px}
+
+.prog{position:fixed;inset:0 0 auto 0;height:2px;background:var(--citron);transform:scaleX(0);transform-origin:0 50%;z-index:60}
+
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(11,14,26,.72);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;transition:border-color .25s ease;
+}
+.topbar.stuck{border-bottom-color:var(--rule-soft)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.mark{font-family:var(--mono);font-size:13px;letter-spacing:.16em;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:9px}
+.dot{width:7px;height:7px;background:var(--citron);border-radius:50%;flex:none;box-shadow:0 0 0 0 rgba(217,230,79,.55);animation:pulse 2.6s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(217,230,79,.5)}70%{box-shadow:0 0 0 9px rgba(217,230,79,0)}100%{box-shadow:0 0 0 0 rgba(217,230,79,0)}}
+.navlinks{display:flex;gap:26px}
+.navlinks a{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);text-decoration:none;transition:color .18s ease}
+.navlinks a:hover{color:var(--citron)}
+@media (max-width:800px){.navlinks{display:none}}
+
+/* ---------- hero ---------- */
+body .hero{
+  padding-top:clamp(48px,8vw,92px);padding-bottom:var(--sec);
+  background:none;border-radius:0;text-align:left;color:var(--text);
+}
+.status{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer)}
+.status b{color:var(--citron);font-weight:600}
+
+.name{
+  font-family:var(--mono);font-weight:700;
+  font-size:clamp(38px,9.2vw,104px);line-height:.92;letter-spacing:-.055em;
+  text-transform:lowercase;margin-top:20px;
+}
+.name span{display:block}
+.name .two{color:var(--dim)}
+
+.role{
+  margin-top:22px;font-family:var(--mono);font-size:clamp(13px,1.8vw,15.5px);
+  letter-spacing:.02em;color:var(--peri);
+}
+.pitch{margin-top:26px;max-width:66ch;color:var(--dim);font-size:clamp(15.5px,1.7vw,18px);line-height:1.62}
+.pitch em{color:var(--text);font-style:normal}
+
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.btn{
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;padding:12px 20px;border:1px solid var(--rule);border-radius:4px;
+  color:var(--text);background:transparent;transition:border-color .18s ease,color .18s ease,background .18s ease;
+}
+.btn:hover{border-color:var(--citron);color:var(--citron)}
+.btn.solid{background:var(--citron);border-color:var(--citron);color:#0B0E1A;font-weight:600}
+.btn.solid:hover{background:#E7F16E;border-color:#E7F16E;color:#0B0E1A}
+
+/* ---------- signature: the latency trace ---------- */
+.scope{
+  margin-top:clamp(44px,6vw,72px);
+  border:1px solid var(--rule);border-radius:6px;background:var(--panel);
+  overflow:hidden;
+}
+.scope-head{
+  display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px 20px;
+  padding:14px 18px;border-bottom:1px solid var(--rule-soft);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer);
+}
+.scope-head .src{color:var(--dim)}
+.scope-body{display:grid;grid-template-columns:1fr 232px}
+@media (max-width:860px){.scope-body{grid-template-columns:1fr}}
+.chart{padding:16px 8px 6px 8px;min-width:0}
+.chart svg{display:block;width:100%;height:auto}
+
+.readout{
+  border-left:1px solid var(--rule-soft);padding:26px 22px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+@media (max-width:860px){.readout{border-left:0;border-top:1px solid var(--rule-soft)}}
+.readout .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer)}
+.readout .big{font-family:var(--mono);font-weight:700;font-size:clamp(44px,7vw,58px);line-height:1;letter-spacing:-.04em;color:var(--citron);margin-top:12px}
+.readout .big i{font-style:normal;font-size:.36em;letter-spacing:.04em;color:var(--dim);margin-left:6px;font-weight:500}
+.readout .sub{margin-top:16px;font-size:13.5px;color:var(--dim);line-height:1.5}
+.readout .sub b{color:var(--text);font-weight:500}
+
+/* svg internals */
+.ax{stroke:var(--rule-soft);stroke-width:1}
+.axlab{fill:var(--dimmer);font-family:var(--mono);font-size:10px;letter-spacing:.06em}
+.trace{fill:none;stroke:var(--citron);stroke-width:2.25;stroke-linejoin:round;stroke-linecap:round}
+.traceghost{fill:none;stroke:var(--rule);stroke-width:1;stroke-dasharray:2 4}
+.mk{fill:var(--panel);stroke:var(--peri);stroke-width:1.5}
+.mklab{fill:var(--dim);font-family:var(--mono);font-size:10px;letter-spacing:.04em}
+.mkline{stroke:var(--rule);stroke-width:1;stroke-dasharray:2 3}
+.head{fill:var(--citron)}
+.halo{fill:rgba(217,230,79,.16)}
+@media (max-width:640px){.mklab{display:none}}
+
+/* ---------- metrics strip ---------- */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule-soft)}
+@media (max-width:800px){.strip{grid-template-columns:repeat(2,1fr)}}
+.cell{padding:34px 8px 34px 26px;border-left:1px solid var(--rule-soft)}
+.cell:first-child{border-left:0;padding-left:0}
+@media (max-width:800px){
+  .cell{padding:26px 8px 26px 22px}
+  .cell:nth-child(3){border-left:0;padding-left:0;border-top:1px solid var(--rule-soft)}
+  .cell:nth-child(4){border-top:1px solid var(--rule-soft)}
+}
+.cell .v{font-family:var(--mono);font-weight:700;font-size:clamp(30px,4.4vw,42px);letter-spacing:-.04em;line-height:1;color:var(--text)}
+.cell .v u{text-decoration:none;color:var(--citron)}
+.cell .k{margin-top:12px;font-size:13.5px;color:var(--dim);line-height:1.45;max-width:22ch}
+.cell .src{margin-top:8px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer)}
+
+/* ---------- experience ---------- */
+.job{display:grid;grid-template-columns:260px 1fr;gap:clamp(24px,4vw,56px)}
+@media (max-width:900px){.job{grid-template-columns:1fr;gap:22px}}
+.job + .job{margin-top:clamp(56px,7vw,88px);padding-top:clamp(56px,7vw,88px);border-top:1px solid var(--rule-soft)}
+.job-meta .co{font-family:var(--mono);font-size:clamp(19px,2.4vw,23px);font-weight:600;letter-spacing:-.03em}
+.job-meta .rl{margin-top:10px;color:var(--peri);font-size:14px}
+.job-meta .when{margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dimmer);line-height:1.9}
+.job-meta .ctx{margin-top:16px;font-size:13.5px;color:var(--dim);line-height:1.5;border-left:2px solid var(--rule);padding-left:12px}
+
+.bullets li{
+  position:relative;padding:0 0 0 26px;color:var(--dim);font-size:15.5px;line-height:1.62;
+}
+.bullets li + li{margin-top:18px}
+.bullets li::before{
+  content:"";position:absolute;left:0;top:.72em;width:11px;height:1px;background:var(--rule);
+  transition:width .22s ease,background .22s ease;
+}
+.bullets li:hover::before{width:18px;background:var(--citron)}
+
+/* ---------- toolchain ---------- */
+.stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:1px;background:var(--rule-soft);border:1px solid var(--rule-soft);border-radius:6px;overflow:hidden}
+.grp{background:var(--panel);padding:24px 22px 26px}
+.grp-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:18px}
+.grp-h .t{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text)}
+.grp-h .c{font-family:var(--mono);font-size:11px;color:var(--dimmer);letter-spacing:.1em}
+.tags{display:flex;flex-wrap:wrap;gap:7px}
+.tag{
+  font-size:12.5px;padding:5px 10px;border:1px solid var(--rule);border-radius:3px;color:var(--dim);
+  background:var(--panel-2);transition:border-color .16s ease,color .16s ease;
+}
+.grp:hover .tag{border-color:#2C3454}
+.tag:hover{border-color:var(--citron);color:var(--citron)}
+
+/* ---------- credentials ---------- */
+.creds{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px)}
+@media (max-width:800px){.creds{grid-template-columns:1fr;gap:44px}}
+.cr-h{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer);padding-bottom:14px;border-bottom:1px solid var(--rule-soft)}
+.cr li{padding:20px 0;border-bottom:1px solid var(--rule-soft)}
+.cr .t{font-size:16px;color:var(--text)}
+.cr .m{margin-top:6px;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--dimmer);text-transform:uppercase}
+
+/* ---------- contact ---------- */
+.wrap .contact-line{font-family:var(--mono);font-size:clamp(26px,5.4vw,58px);letter-spacing:-.045em;line-height:1.06;font-weight:600;color:var(--text)}
+.contact-line a{color:var(--citron);text-decoration:none;border-bottom:1px solid rgba(217,230,79,.28);transition:border-color .18s ease}
+.contact-line a:hover{border-bottom-color:var(--citron)}
+.reach{display:flex;flex-wrap:wrap;gap:10px 12px;margin-top:38px}
+.meta{margin-top:40px;display:flex;flex-wrap:wrap;gap:8px 34px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer)}
+.meta b{color:var(--dim);font-weight:400}
+
+body footer{border-top:1px solid var(--rule-soft);padding:26px 0 40px;text-align:left;color:var(--dimmer)}
+body footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dimmer)}
+
+/* ---------- focus + motion ---------- */
+a:focus-visible,button:focus-visible{outline:2px solid var(--citron);outline-offset:3px;border-radius:2px}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.22,.61,.36,1),transform .6s cubic-bezier(.22,.61,.36,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}.d4{transition-delay:.24s}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="prog" id="prog"></div>
+
+<div class="topbar" id="topbar">
+  <div class="wrap">
+    <a class="mark" href="#top"><span class="dot" aria-hidden="true"></span>SPM</a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="#record">Record</a>
+      <a href="#toolchain">Toolchain</a>
+      <a href="#credentials">Credentials</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <p class="status reveal in">AI/ML Engineer &nbsp;·&nbsp; Irving, TX &nbsp;·&nbsp; <b>Authorized to work in the U.S.</b></p>
+
+    <h1 class="name reveal in d1"><span>Siva Prasad</span><span class="two">Mandalapu</span></h1>
+
+    <p class="role reveal in d2">Production ML &nbsp;/&nbsp; MLOps &nbsp;/&nbsp; Generative AI &nbsp;&nbsp;—&nbsp;&nbsp; Healthcare &amp; Financial Services</p>
+
+    <p class="pitch reveal in d3">
+      I build machine learning for systems that get audited. <em>Five years</em> of models in production —
+      HIPAA-regulated clinical imaging at Philips Healthcare, RBI-audited fraud detection at HDFC Bank —
+      plus the pipelines that ship them and the monitoring that keeps them honest.
+    </p>
+
+    <div class="cta reveal in d4">
+      <a class="btn solid" href="mailto:msprasadm.1996@gmail.com">Email Siva</a>
+      <a class="btn" href="REPLACE_WITH_YOUR_LINKEDIN_URL">LinkedIn</a>
+      <a class="btn" href="REPLACE_WITH_YOUR_GITHUB_URL">GitHub</a>
+    </div>
+
+    <!-- ---- signature element: the latency trace ---- -->
+    <div class="scope reveal">
+      <div class="scope-head">
+        <span>Inference latency &nbsp;·&nbsp; chest X-ray pipeline</span>
+        <span class="src">Philips Healthcare &nbsp;·&nbsp; 10K+ scans / day</span>
+      </div>
+      <div class="scope-body">
+        <div class="chart">
+          <svg viewBox="0 0 960 286" role="img" aria-label="Line chart showing inference latency falling from 2000 milliseconds to 150 milliseconds across three optimization passes: TensorRT, FastAPI serving, and edge plus SageMaker.">
+            <!-- y grid -->
+            <g>
+              <line class="ax" x1="66" y1="46" x2="946" y2="46"></line>
+              <line class="ax" x1="66" y1="89" x2="946" y2="89"></line>
+              <line class="ax" x1="66" y1="133" x2="946" y2="133"></line>
+              <line class="ax" x1="66" y1="176" x2="946" y2="176"></line>
+              <line class="ax" x1="66" y1="206" x2="946" y2="206"></line>
+              <text class="axlab" x="58" y="50"  text-anchor="end">2000</text>
+              <text class="axlab" x="58" y="93"  text-anchor="end">1500</text>
+              <text class="axlab" x="58" y="137" text-anchor="end">1000</text>
+              <text class="axlab" x="58" y="180" text-anchor="end">500</text>
+              <text class="axlab" x="58" y="210" text-anchor="end">150</text>
+              <text class="axlab" x="14" y="150" transform="rotate(-90 14 150)" text-anchor="middle">ms</text>
+            </g>
+
+            <!-- optimization pass markers -->
+            <g>
+              <line class="mkline" x1="270" y1="106" x2="270" y2="244"></line>
+              <line class="mkline" x1="410" y1="144" x2="410" y2="244"></line>
+              <line class="mkline" x1="700" y1="205" x2="700" y2="244"></line>
+              <text class="mklab" x="270" y="262" text-anchor="middle">TensorRT</text>
+              <text class="mklab" x="410" y="262" text-anchor="middle">FastAPI serving</text>
+              <text class="mklab" x="700" y="262" text-anchor="middle">edge + SageMaker</text>
+            </g>
+
+            <!-- ghost of the path, so layout never looks empty pre-animation -->
+            <path class="traceghost" d="M70,46 L150,45 L200,58 L270,100 L360,98 L410,138 L500,136 L560,176 L650,174 L700,199 L800,204 L930,206"></path>
+
+            <!-- the live trace -->
+            <path id="trace" class="trace" d="M70,46 L150,45 L200,58 L270,100 L360,98 L410,138 L500,136 L560,176 L650,174 L700,199 L800,204 L930,206"></path>
+
+            <circle class="mk" cx="270" cy="100" r="4"></circle>
+            <circle class="mk" cx="410" cy="138" r="4"></circle>
+            <circle class="mk" cx="700" cy="199" r="4"></circle>
+
+            <circle id="halo" class="halo" cx="70" cy="46" r="11"></circle>
+            <circle id="head" class="head" cx="70" cy="46" r="4.5"></circle>
+
+            <text class="axlab" x="66" y="282">optimization pass &#8594;</text>
+          </svg>
+        </div>
+
+        <div class="readout">
+          <span class="lab">Current p50</span>
+          <div class="big"><span id="ms">2000</span><i>ms</i></div>
+          <p class="sub">Down from 2s. <b>13&times; faster</b>, holding <b>92% precision</b> — PyTorch models compiled with TensorRT, served as FastAPI microservices on edge devices backed by AWS SageMaker.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= METRICS ================= -->
+<section class="sec" style="padding-top:0" aria-label="Headline results">
+  <div class="wrap">
+    <div class="strip" id="strip">
+      <div class="cell reveal">
+        <div class="v"><span class="cnt" data-to="13">0</span><u>&times;</u></div>
+        <p class="k">faster diagnostic inference, 2s to 150ms</p>
+        <p class="src">Philips</p>
+      </div>
+      <div class="cell reveal d1">
+        <div class="v"><span class="cnt" data-to="95">0</span><u>%</u></div>
+        <p class="k">fraud recall across 5M+ daily transactions</p>
+        <p class="src">HDFC Bank</p>
+      </div>
+      <div class="cell reveal d2">
+        <div class="v"><span class="cnt" data-to="99.9" data-dec="1">0</span><u>%</u></div>
+        <p class="k">serving SLA held through peak banking hours</p>
+        <p class="src">HDFC Bank</p>
+      </div>
+      <div class="cell reveal d3">
+        <div class="v"><span class="cnt" data-to="500">0</span><u>GB</u></div>
+        <p class="k">imaging data processed per training cycle</p>
+        <p class="src">Philips</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section class="sec" id="record">
+  <div class="wrap">
+    <p class="eyebrow reveal">Production record <b>&#8226;</b> 2019 &#8212; present</p>
+    <h2 class="h2 reveal d1">what shipped, and what it moved</h2>
+    <p class="lede reveal d2">Two regulated environments, one job description: get the model out of the notebook and keep it trustworthy once it's there.</p>
+
+    <div style="margin-top:clamp(48px,6vw,76px)">
+
+      <article class="job reveal">
+        <div class="job-meta">
+          <h3 class="co">Philips Healthcare</h3>
+          <p class="rl">AI/ML Engineer (Contract)</p>
+          <p class="when">Dec 2023 &#8212; Present<br>Remote</p>
+          <p class="ctx">Clinical imaging AI under HIPAA. Models that radiologists actually read from.</p>
+        </div>
+        <ul class="bullets">
+          <li>Cut diagnostic inference latency <span class="n">13&times;</span>, from <span class="n">2s</span> to <span class="n">150ms</span>, across <span class="n">10K+</span> daily X-ray scans by optimizing PyTorch models with TensorRT and rebuilding the serving layer as FastAPI microservices on edge devices backed by AWS SageMaker — holding <span class="n">92%</span> precision.</li>
+          <li>Raised lung-disease detection accuracy <span class="n">28%</span> by fine-tuning ResNet and YOLOv8 on labeled clinical imaging datasets and running automated hyperparameter sweeps in Weights &amp; Biases.</li>
+          <li>Shortened model release cycles from <span class="n">4 weeks</span> to <span class="n">1 week</span> by building end-to-end CI/CD across MLflow, Jenkins, GitHub Actions, Docker and Kubernetes, making every deployment versioned and reproducible.</li>
+          <li>Improved cross-site model generalization <span class="n">15%</span> with zero patient data leaving origin sites, by architecting a HIPAA-compliant federated learning pipeline in Flower spanning <span class="n">5</span> regional hospital networks.</li>
+          <li>Reduced radiologist draft-review time <span class="n">35%</span> with an agentic GenAI pipeline — LangChain, LangGraph and RAG over BERT-based LLMs — that generates clinical report drafts directly from imaging model outputs.</li>
+          <li>Caught hallucination and drift incidents before release by instrumenting a real-time LLM observability layer with LangSmith, Prometheus and Grafana, paired with bias-detection pipelines and HIPAA fairness dashboards documenting model equity across patient subgroups.</li>
+          <li>Processed <span class="n">500GB+</span> of imaging data per training cycle by orchestrating Apache Spark and Kafka ETL pipelines with schema enforcement, automated quality validation and augmentation.</li>
+          <li>Increased team delivery velocity <span class="n">20%</span> by mentoring <span class="n">4</span> engineers on PyTorch model development, MLOps and LLMOps deployment practice.</li>
+        </ul>
+      </article>
+
+      <article class="job reveal">
+        <div class="job-meta">
+          <h3 class="co">HDFC Bank</h3>
+          <p class="rl">AI/ML Engineer — Fraud &amp; Risk AI</p>
+          <p class="when">Dec 2019 &#8212; Nov 2022<br>Bengaluru, India</p>
+          <p class="ctx">India's largest private bank, 70M+ customers. Every model decision had to survive an RBI audit.</p>
+        </div>
+        <ul class="bullets">
+          <li>Detected fraud at <span class="n">95%</span> recall across <span class="n">5M+</span> daily transactions with <span class="n">sub-100ms</span> scoring, by deploying Transformer-based NLP models on Azure ML — cutting false positives <span class="n">30%</span>.</li>
+          <li>Reduced fraud losses <span class="n">35%</span> by engineering LSTM, Transformer and Graph Neural Network ensembles for behavioral anomaly detection over Kafka streaming pipelines.</li>
+          <li>Cut fraud-investigation time <span class="n">40%</span> by implementing SHAP and LIME explainability layers that auto-generated RBI-compliant audit reports for risk and compliance teams.</li>
+          <li>Held <span class="n">99.9%</span> SLA uptime through peak banking hours by automating model retraining, drift detection and rollback with MLflow, Kubeflow and Kubernetes.</li>
+          <li>Improved model F1-score <span class="n">22%</span> by automating feature-engineering ETL across <span class="n">1M+</span> labeled transaction records using Pandas and Dask.</li>
+          <li>Expanded training data <span class="n">5&times;</span> without exposing customer records, by generating synthetic transaction data under differential-privacy constraints and validating it against custom fidelity metrics.</li>
+          <li>Delivered <span class="n">3</span> fraud-AI systems end to end, leading Agile execution across risk, compliance and engineering from data ingestion through production deployment.</li>
+        </ul>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= TOOLCHAIN ================= -->
+<section class="sec" id="toolchain">
+  <div class="wrap">
+    <p class="eyebrow reveal">Toolchain</p>
+    <h2 class="h2 reveal d1">what I reach for</h2>
+    <p class="lede reveal d2">Grouped by the job it does, not by how impressive the logo looks.</p>
+
+    <div class="stack reveal d3" style="margin-top:clamp(40px,5vw,60px)">
+
+      <div class="grp">
+        <div class="grp-h"><span class="t">Languages</span><span class="c">5</span></div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Java</span><span class="tag">TypeScript</span><span class="tag">Bash / Shell</span></div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><span class="t">ML &amp; Deep Learning</span><span class="c">12</span></div>
+        <div class="tags"><span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">scikit-learn</span><span class="tag">XGBoost</span><span class="tag">LightGBM</span><span class="tag">CNNs</span><span class="tag">Transformers</span><span class="tag">BERT</span><span class="tag">ResNet</span><span class="tag">YOLOv8</span><span class="tag">LSTM</span><span class="tag">Graph Neural Networks</span></div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><span class="t">Generative AI &amp; Agents</span><span class="c">10</span></div>
+        <div class="tags"><span class="tag">LangChain</span><span class="tag">LangGraph</span><span class="tag">LlamaIndex</span><span class="tag">RAG pipelines</span><span class="tag">LoRA fine-tuning</span><span class="tag">Hugging Face</span><span class="tag">OpenAI GPT-4</span><span class="tag">Claude</span><span class="tag">Multi-agent systems</span><span class="tag">MCP</span></div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><span class="t">MLOps &amp; LLMOps</span><span class="c">13</span></div>
+        <div class="tags"><span class="tag">MLflow</span><span class="tag">Kubeflow</span><span class="tag">Weights &amp; Biases</span><span class="tag">LangSmith</span><span class="tag">Jenkins</span><span class="tag">GitHub Actions</span><span class="tag">CI/CD</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Model registry</span><span class="tag">Drift monitoring</span></div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><span class="t">Cloud &amp; Serving</span><span class="c">12</span></div>
+        <div class="tags"><span class="tag">AWS SageMaker</span><span class="tag">EC2</span><span class="tag">S3</span><span class="tag">Lambda</span><span class="tag">EKS</span><span class="tag">Azure ML</span><span class="tag">Azure OpenAI</span><span class="tag">Vertex AI</span><span class="tag">Terraform</span><span class="tag">TensorRT</span><span class="tag">FastAPI</span><span class="tag">Edge deployment</span></div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><span class="t">Data Engineering</span><span class="c">9</span></div>
+        <div class="tags"><span class="tag">Apache Spark</span><span class="tag">Kafka</span><span class="tag">Airflow</span><span class="tag">Databricks</span><span class="tag">Delta Lake</span><span class="tag">Pandas</span><span class="tag">Dask</span><span class="tag">NumPy</span><span class="tag">ETL pipelines</span></div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><span class="t">Databases &amp; Vector Stores</span><span class="c">8</span></div>
+        <div class="tags"><span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">MongoDB</span><span class="tag">Cassandra</span><span class="tag">Pinecone</span><span class="tag">FAISS</span><span class="tag">ChromaDB</span><span class="tag">Weaviate</span></div>
+      </div>
+
+      <div class="grp">
+        <div class="grp-h"><span class="t">Responsible AI &amp; Compliance</span><span class="c">7</span></div>
+        <div class="tags"><span class="tag">HIPAA</span><span class="tag">RBI audit compliance</span><span class="tag">Explainable AI (SHAP / LIME)</span><span class="tag">Federated learning</span><span class="tag">Differential privacy</span><span class="tag">Bias detection</span><span class="tag">AI governance</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= CREDENTIALS ================= -->
+<section class="sec" id="credentials">
+  <div class="wrap">
+    <p class="eyebrow reveal">Credentials</p>
+    <div class="creds" style="margin-top:8px">
+      <div class="reveal d1">
+        <p class="cr-h">Education</p>
+        <ul class="cr">
+          <li>
+            <p class="t">M.S., Information Systems</p>
+            <p class="m">Marist College &#8226; Poughkeepsie, NY &#8226; 2023&#8211;2024</p>
+          </li>
+          <li>
+            <p class="t">B.Tech, Mechanical Engineering</p>
+            <p class="m">Sir C.R.R. College of Engineering &#8226; India</p>
+          </li>
+        </ul>
+      </div>
+      <div class="reveal d2">
+        <p class="cr-h">Certifications</p>
+        <ul class="cr">
+          <li>
+            <p class="t">AWS Certified Machine Learning — Specialty</p>
+            <p class="m">Amazon Web Services</p>
+          </li>
+          <li>
+            <p class="t">TensorFlow Developer Certificate</p>
+            <p class="m">Google</p>
+          </li>
+          <li>
+            <p class="t">Generative AI with Large Language Models</p>
+            <p class="m">DeepLearning.AI &amp; AWS</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="sec" id="contact">
+  <div class="wrap">
+    <p class="eyebrow reveal">Contact</p>
+    <h2 class="contact-line reveal d1">Got a model stuck<br>between notebook and<br>production? <a href="mailto:REPLACE_WITH_YOUR_EMAIL">Let's talk.</a></h2>
+
+    <div class="reach reveal d2">
+      <a class="btn solid" href="mailto:msprasadm.1996@gmail.com">Email</a>
+      <a class="btn" href="tel:+19433008560">(943) 300-8560</a>
+      <a class="btn" href="https://www.linkedin.com/in/sivaprasadmandalapu/">LinkedIn</a>
+      <a class="btn" href="https://github.com/snvvprasad">GitHub</a>
+    </div>
+
+    <div class="meta reveal d3">
+      <span>Based in <b>Irving, TX</b></span>
+      <span>Open to <b>remote &amp; hybrid</b></span>
+      <span><b>Authorized to work in the U.S.</b></span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Siva Prasad Mandalapu &#8212; AI/ML Engineer</span>
+    <span>One HTML file. No frameworks, no trackers.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- scroll progress + sticky border ---- */
+  var prog = document.getElementById('prog');
+  var topbar = document.getElementById('topbar');
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      var p = h > 0 ? window.scrollY / h : 0;
+      prog.style.transform = 'scaleX(' + Math.min(1, Math.max(0, p)) + ')';
+      topbar.classList.toggle('stuck', window.scrollY > 8);
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---- scroll reveal ---- */
+  var items = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---- signature: draw the trace, ride the head, read out the latency ---- */
+  var trace = document.getElementById('trace');
+  var head = document.getElementById('head');
+  var halo = document.getElementById('halo');
+  var ms = document.getElementById('ms');
+
+  var Y_TOP = 46, Y_BOT = 206, MS_TOP = 2000, MS_BOT = 150;
+  function msAt(y) {
+    var t = (y - Y_TOP) / (Y_BOT - Y_TOP);
+    return Math.round(MS_TOP - Math.min(1, Math.max(0, t)) * (MS_TOP - MS_BOT));
+  }
+
+  function settle() {
+    trace.style.strokeDashoffset = '0';
+    var end = trace.getPointAtLength(trace.getTotalLength());
+    head.setAttribute('cx', end.x); head.setAttribute('cy', end.y);
+    halo.setAttribute('cx', end.x); halo.setAttribute('cy', end.y);
+    ms.textContent = '150';
+  }
+
+  function drawTrace() {
+    var len = trace.getTotalLength();
+    trace.style.strokeDasharray = len + ' ' + len;
+    trace.style.strokeDashoffset = len;
+
+    if (reduce) { settle(); return; }
+
+    var DUR = 1750, start = null;
+    function frame(now) {
+      if (start === null) start = now;
+      var t = Math.min(1, (now - start) / DUR);
+      var e = 1 - Math.pow(1 - t, 3);
+      trace.style.strokeDashoffset = len * (1 - e);
+      var p = trace.getPointAtLength(len * e);
+      head.setAttribute('cx', p.x); head.setAttribute('cy', p.y);
+      halo.setAttribute('cx', p.x); halo.setAttribute('cy', p.y);
+      ms.textContent = msAt(p.y);
+      if (t < 1) requestAnimationFrame(frame); else settle();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* ---- counters ---- */
+  function runCounter(el) {
+    var to = parseFloat(el.dataset.to);
+    var dec = parseInt(el.dataset.dec || '0', 10);
+    if (reduce) { el.textContent = to.toFixed(dec); return; }
+    var DUR = 1200, start = null;
+    function frame(now) {
+      if (start === null) start = now;
+      var t = Math.min(1, (now - start) / DUR);
+      var e = 1 - Math.pow(1 - t, 3);
+      el.textContent = (to * e).toFixed(dec);
+      if (t < 1) requestAnimationFrame(frame); else el.textContent = to.toFixed(dec);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  var strip = document.getElementById('strip');
+  if (!('IntersectionObserver' in window)) {
+    strip.querySelectorAll('.cnt').forEach(runCounter);
+  } else {
+    var io2 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.cnt').forEach(runCounter);
+          io2.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    io2.observe(strip);
+  }
+
+  /* kick the trace once the hero panel is on screen */
+  var scope = document.querySelector('.scope');
+  if (!('IntersectionObserver' in window)) {
+    setTimeout(drawTrace, 400);
+  } else {
+    var io3 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { setTimeout(drawTrace, 260); io3.unobserve(e.target); }
+      });
+    }, { threshold: 0.25 });
+    io3.observe(scope);
+  }
+})();
+</script>
+</body>
+</html>
