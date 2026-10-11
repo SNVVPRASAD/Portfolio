@@ -4,9 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Siva Prasad Mandalapu — Machine Learning Engineer</title>
-<meta name="description" content="Machine learning engineer who gets models into production and keeps them healthy there. 5 years running real-time ML in regulated industries.">
+<meta name="description" content="Machine Learning Engineer. Production ML and MLOps for real-time fraud scoring and medical imaging: 5M+ fraud scores/day at 99.9% uptime, 13x faster imaging inference.">
+<meta property="og:title" content="Siva Prasad Mandalapu — Machine Learning Engineer">
+<meta property="og:description" content="Production ML, MLOps, Fraud & Healthcare AI. 5M+ fraud scores/day at 99.9% uptime. 13x faster medical-imaging inference.">
 <meta name="color-scheme" content="dark">
 <style>
+/* ============================================================
+   Tokens
+   ink      substrate, the board everything sits on
+   panel    raised instrument surface
+   rule     hairline, axis and divider
+   citron   the signal colour. one job per view.
+   peri     periwinkle, structural accent for links
+   alarm    flagged transactions only
+   ============================================================ */
 :root{
   --ink:#0B0E1A;
   --panel:#111527;
@@ -18,86 +29,122 @@
   --dimmer:#5F6A8C;
   --citron:#D9E64F;
   --peri:#8CA0F0;
+  --alarm:#F07A6A;
 
   --mono: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", "Roboto Mono", Menlo, Consolas, "Liberation Mono", monospace;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
-  --gut: clamp(20px, 5vw, 64px);
+  --gut: clamp(16px, 5vw, 64px);
   --maxw: 1180px;
   --sec: clamp(72px, 11vw, 140px);
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
 body{
-  margin:0;
-  background:var(--ink);
-  color:var(--text);
-  font-family:var(--sans);
-  font-size:16px;
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
+  margin:0;background:var(--ink);color:var(--text);font-family:var(--sans);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
   font-variant-numeric:tabular-nums;
 }
 a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 h1,h2,h3{margin:0;font-weight:600}
 p{margin:0}
 ul{margin:0;padding:0;list-style:none}
-.n{font-family:var(--mono);color:var(--citron);font-variant-numeric:tabular-nums;letter-spacing:-.01em;font-weight:600}
+
+/* numbers get their own typeface. this is the rule the page runs on. */
+.n{font-family:var(--mono);color:var(--citron);letter-spacing:-.01em;font-weight:600}
+
 .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gut)}
 .sec{padding-block:var(--sec)}
 .sec + .sec{border-top:1px solid var(--rule-soft)}
+
 .eyebrow{
   font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
   color:var(--dimmer);display:flex;align-items:center;gap:12px;margin-bottom:28px;
 }
 .eyebrow::after{content:"";height:1px;background:var(--rule);flex:1}
 .eyebrow b{color:var(--citron);font-weight:600}
-.wrap .h2{font-family:var(--mono);font-weight:600;letter-spacing:-.035em;font-size:clamp(28px,4.6vw,44px);line-height:1.05;color:var(--text);}
-.sec,body .hero{border-bottom:0}
+.wrap .h2{font-family:var(--mono);font-weight:600;letter-spacing:-.035em;font-size:clamp(28px,4.6vw,44px);line-height:1.05}
 .lede{color:var(--dim);max-width:62ch;margin-top:18px;font-size:clamp(15px,1.5vw,17px)}
+.sec,body .hero{border-bottom:0}
+
+/* cursor spotlight on raised surfaces */
+.spot{position:relative}
+.spot::after{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(420px circle at var(--mx,-999px) var(--my,-999px), rgba(140,160,240,.075), transparent 60%);
+}
+
+/* ---------- skip + progress + topbar ---------- */
 .skip{position:absolute;left:-999px;top:0;background:var(--citron);color:#0B0E1A;padding:10px 16px;font-family:var(--mono);font-size:13px;z-index:99}
 .skip:focus{left:8px;top:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .prog{position:fixed;inset:0 0 auto 0;height:2px;background:var(--citron);transform:scaleX(0);transform-origin:0 50%;z-index:60}
-.topbar{position:sticky;top:0;z-index:50;background:rgba(11,14,26,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .25s ease;}
+
+.topbar{position:sticky;top:0;z-index:50;background:rgba(11,14,26,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .25s ease}
 .topbar.stuck{border-bottom-color:var(--rule-soft)}
 .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
 .mark{font-family:var(--mono);font-size:13px;letter-spacing:.16em;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:9px}
-.dot{width:7px;height:7px;background:var(--citron);border-radius:50%;flex:none;box-shadow:0 0 0 0 rgba(217,230,79,.55);animation:pulse 2.6s ease-out infinite}
+.dot{width:7px;height:7px;background:var(--citron);border-radius:50%;flex:none;animation:pulse 2.6s ease-out infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(217,230,79,.5)}70%{box-shadow:0 0 0 9px rgba(217,230,79,0)}100%{box-shadow:0 0 0 0 rgba(217,230,79,0)}}
+.navr{display:flex;align-items:center;gap:26px}
 .navlinks{display:flex;gap:26px}
-.navlinks a{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);text-decoration:none;transition:color .18s ease}
-.navlinks a:hover{color:var(--citron)}
-@media (max-width:800px){.navlinks{display:none}}
-body .hero{padding-top:clamp(48px,8vw,92px);padding-bottom:var(--sec);background:none;border-radius:0;text-align:left;color:var(--text);}
+.navlinks a{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);text-decoration:none;transition:color .18s ease;position:relative}
+.navlinks a:hover,.navlinks a[aria-current="true"]{color:var(--citron)}
+.navlinks a[aria-current="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--citron)}
+.kbtn{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--dim);border:1px solid var(--rule);border-radius:4px;padding:6px 10px;display:flex;gap:8px;align-items:center;transition:border-color .18s,color .18s}
+.kbtn:hover{border-color:var(--citron);color:var(--citron)}
+.kbtn kbd{font-family:var(--mono);font-size:10px;color:var(--dimmer);border:1px solid var(--rule);border-radius:3px;padding:1px 5px}
+@media (max-width:860px){.navlinks{display:none}.kbtn kbd{display:none}}
+
+/* ---------- hero ---------- */
+body .hero{padding-top:clamp(48px,8vw,92px);padding-bottom:var(--sec)}
 .status{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer)}
 .status b{color:var(--citron);font-weight:600}
-.name{font-family:var(--mono);font-weight:700;font-size:clamp(38px,9.2vw,104px);line-height:.92;letter-spacing:-.055em;text-transform:lowercase;margin-top:20px;}
+.name{font-family:var(--mono);font-weight:700;font-size:clamp(38px,9.2vw,104px);line-height:.92;letter-spacing:-.055em;text-transform:lowercase;margin-top:20px}
 .name span{display:block}
 .name .two{color:var(--dim)}
-.role{margin-top:22px;font-family:var(--mono);font-size:clamp(13px,1.8vw,15.5px);letter-spacing:.02em;color:var(--peri);}
+.role{margin-top:22px;font-family:var(--mono);font-size:clamp(13px,1.8vw,15.5px);letter-spacing:.02em;color:var(--peri);min-height:1.6em}
+.role .typed{color:var(--text)}
+.caret{display:inline-block;width:.55em;height:1.05em;background:var(--citron);vertical-align:-.15em;margin-left:2px;animation:blink 1.05s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
 .pitch{margin-top:26px;max-width:66ch;color:var(--dim);font-size:clamp(15.5px,1.7vw,18px);line-height:1.62}
 .pitch em{color:var(--text);font-style:normal}
+
 .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
-.btn{font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:12px 20px;border:1px solid var(--rule);border-radius:4px;color:var(--text);background:transparent;transition:border-color .18s ease,color .18s ease,background .18s ease;}
+.btn{font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:12px 20px;border:1px solid var(--rule);border-radius:4px;color:var(--text);background:transparent;transition:border-color .18s ease,color .18s ease,background .18s ease;display:inline-flex;align-items:center;gap:8px}
 .btn:hover{border-color:var(--citron);color:var(--citron)}
 .btn.solid{background:var(--citron);border-color:var(--citron);color:#0B0E1A;font-weight:600}
 .btn.solid:hover{background:#E7F16E;border-color:#E7F16E;color:#0B0E1A}
-.scope{margin-top:clamp(44px,6vw,72px);border:1px solid var(--rule);border-radius:6px;background:var(--panel);overflow:hidden;}
-.scope-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px 20px;padding:14px 18px;border-bottom:1px solid var(--rule-soft);font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer);}
-.scope-head .src{color:var(--dim)}
-.scope-body{display:grid;grid-template-columns:1fr 232px}
+.btn.ghost{border-style:dashed}
+
+/* ---------- signature: the instrument ---------- */
+.scope{margin-top:clamp(44px,6vw,72px);border:1px solid var(--rule);border-radius:6px;background:var(--panel);overflow:hidden}
+.scope-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;padding:10px 12px 10px 10px;border-bottom:1px solid var(--rule-soft);font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer)}
+.scope-head .src{color:var(--dim);padding-right:6px}
+@media (max-width:640px){.scope-head .src{display:none}}
+.tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tab{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer);padding:8px 12px;border-radius:4px;border:1px solid transparent;transition:color .18s,border-color .18s,background .18s}
+.tab:hover{color:var(--text)}
+.tab[aria-selected="true"]{color:var(--citron);border-color:var(--rule);background:var(--panel-2)}
+.scope-body{display:grid;grid-template-columns:1fr 252px}
 @media (max-width:860px){.scope-body{grid-template-columns:1fr}}
 .chart{padding:16px 8px 6px 8px;min-width:0}
 .chart svg{display:block;width:100%;height:auto}
-.readout{border-left:1px solid var(--rule-soft);padding:26px 22px;display:flex;flex-direction:column;justify-content:center;}
+.readout{border-left:1px solid var(--rule-soft);padding:26px 22px;display:flex;flex-direction:column;justify-content:center}
 @media (max-width:860px){.readout{border-left:0;border-top:1px solid var(--rule-soft)}}
 .readout .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer)}
-.readout .big{font-family:var(--mono);font-weight:700;font-size:clamp(44px,7vw,58px);line-height:1;letter-spacing:-.04em;color:var(--citron);margin-top:12px}
+.readout .big{font-family:var(--mono);font-weight:700;font-size:clamp(40px,6.4vw,54px);line-height:1;letter-spacing:-.04em;color:var(--citron);margin-top:12px;white-space:nowrap}
 .readout .big i{font-style:normal;font-size:.36em;letter-spacing:.04em;color:var(--dim);margin-left:6px;font-weight:500}
 .readout .sub{margin-top:16px;font-size:13.5px;color:var(--dim);line-height:1.5}
 .readout .sub b{color:var(--text);font-weight:500}
+.mini{margin-top:18px;align-self:flex-start;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);border:1px solid var(--rule);border-radius:3px;padding:7px 10px;transition:border-color .18s,color .18s}
+.mini:hover{border-color:var(--citron);color:var(--citron)}
+.pane[hidden]{display:none}
+.note{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dimmer);margin-top:10px}
+
+/* svg internals */
 .ax{stroke:var(--rule-soft);stroke-width:1}
 .axlab{fill:var(--dimmer);font-family:var(--mono);font-size:10px;letter-spacing:.06em}
 .trace{fill:none;stroke:var(--citron);stroke-width:2.25;stroke-linejoin:round;stroke-linecap:round}
@@ -107,55 +154,185 @@ body .hero{padding-top:clamp(48px,8vw,92px);padding-bottom:var(--sec);background
 .mkline{stroke:var(--rule);stroke-width:1;stroke-dasharray:2 3}
 .head{fill:var(--citron)}
 .halo{fill:rgba(217,230,79,.16)}
+.budget{stroke:var(--peri);stroke-width:1;stroke-dasharray:5 4}
+.budlab{fill:var(--peri);font-family:var(--mono);font-size:10px;letter-spacing:.08em}
+.tx{fill:var(--dim);opacity:.55}
+.tx.flag{fill:var(--alarm);opacity:1}
+.ring{fill:none;stroke:var(--alarm);stroke-width:1}
 @media (max-width:640px){.mklab{display:none}}
+
+/* release pane */
+.rel{padding:26px 22px 22px}
+.rel-row{display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:center}
+.rel-row + .rel-row{margin-top:14px}
+.rel-row .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer)}
+.bar{height:30px;border:1px solid var(--rule);border-radius:3px;position:relative;overflow:hidden;background:var(--panel-2)}
+.bar span{position:absolute;inset:0 auto 0 0;width:0;background:var(--rule);transition:width 1.1s cubic-bezier(.22,.61,.36,1)}
+.bar.after span{background:var(--citron)}
+.bar em{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-style:normal;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--text);mix-blend-mode:difference}
+.steps{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;align-items:center}
+.step{font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:6px 10px;border:1px solid var(--rule);border-radius:3px;color:var(--dimmer);background:var(--panel-2);transition:color .25s,border-color .25s}
+.step.on{color:var(--citron);border-color:var(--citron)}
+.step.done{color:var(--text);border-color:#3A446A}
+.arr{color:var(--dimmer);font-family:var(--mono);font-size:12px}
+
+/* ---------- metrics strip ---------- */
 .strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule-soft)}
 @media (max-width:800px){.strip{grid-template-columns:repeat(2,1fr)}}
 .cell{padding:34px 8px 34px 26px;border-left:1px solid var(--rule-soft)}
 .cell:first-child{border-left:0;padding-left:0}
-@media (max-width:800px){.cell{padding:26px 8px 26px 22px}.cell:nth-child(3){border-left:0;padding-left:0;border-top:1px solid var(--rule-soft)}.cell:nth-child(4){border-top:1px solid var(--rule-soft)}}
-.cell .v{font-family:var(--mono);font-weight:700;font-size:clamp(30px,4.4vw,42px);letter-spacing:-.04em;line-height:1;color:var(--text)}
+@media (max-width:800px){
+  .cell{padding:26px 8px 26px 18px}
+  .cell:nth-child(3){border-left:0;padding-left:0;border-top:1px solid var(--rule-soft)}
+  .cell:nth-child(4){border-top:1px solid var(--rule-soft)}
+}
+.cell .v{font-family:var(--mono);font-weight:700;font-size:clamp(30px,4.4vw,42px);letter-spacing:-.04em;line-height:1}
 .cell .v u{text-decoration:none;color:var(--citron)}
-.cell .k{margin-top:12px;font-size:13.5px;color:var(--dim);line-height:1.45;max-width:22ch}
+.cell .k{margin-top:12px;font-size:13.5px;color:var(--dim);line-height:1.45;max-width:24ch}
 .cell .src{margin-top:8px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer)}
-.job{display:grid;grid-template-columns:260px 1fr;gap:clamp(24px,4vw,56px)}
+
+/* ---------- the loop ---------- */
+.loop{display:grid;grid-template-columns:minmax(0,440px) 1fr;gap:clamp(32px,5vw,72px);align-items:center;margin-top:clamp(40px,5vw,60px)}
+@media (max-width:900px){.loop{grid-template-columns:1fr}}
+.dial{position:relative;width:100%;max-width:440px;aspect-ratio:1;margin-inline:auto}
+.dial svg{position:absolute;inset:0;width:100%;height:100%}
+.dial .arc{transition:stroke-dasharray .7s cubic-bezier(.22,.61,.36,1)}
+.node{
+  position:absolute;transform:translate(-50%,-50%);
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  padding:9px 12px;border:1px solid var(--rule);border-radius:4px;background:var(--panel);color:var(--dim);
+  transition:color .2s,border-color .2s,background .2s;white-space:nowrap;
+}
+.node:hover{color:var(--text);border-color:#3A446A}
+.node[aria-pressed="true"]{color:#0B0E1A;background:var(--citron);border-color:var(--citron);font-weight:600}
+.node b{font-weight:400;color:var(--dimmer);margin-right:6px}
+.node[aria-pressed="true"] b{color:#0B0E1A}
+.hub{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;font-family:var(--mono)}
+.hub .i{font-size:clamp(36px,6vw,52px);font-weight:700;letter-spacing:-.04em;color:var(--text);line-height:1}
+.hub .l{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer);margin-top:8px}
+.card{border:1px solid var(--rule);border-radius:6px;background:var(--panel);padding:clamp(22px,3vw,32px)}
+.card .st{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--citron)}
+.card h3{font-family:var(--mono);font-size:clamp(22px,2.8vw,28px);letter-spacing:-.03em;margin-top:10px}
+.card .ln{color:var(--dim);margin-top:10px;font-size:15px}
+.card .its{margin-top:22px;display:grid;gap:12px}
+.it{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;padding:16px 0 0;border-top:1px solid var(--rule-soft)}
+.it .m{font-family:var(--mono);font-weight:700;font-size:20px;letter-spacing:-.03em;color:var(--citron);white-space:nowrap}
+.it .co{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer);grid-column:2;align-self:center}
+.it p{grid-column:1 / -1;color:var(--dim);font-size:14.5px;line-height:1.55}
+.card .go{margin-top:22px}
+.fade{animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ---------- record + filters ---------- */
+.fbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-top:clamp(36px,5vw,52px);padding:12px;border:1px solid var(--rule);border-radius:6px;background:var(--panel)}
+.seg{display:flex;border:1px solid var(--rule);border-radius:4px;overflow:hidden}
+.seg button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:8px 12px;color:var(--dim);transition:background .18s,color .18s}
+.seg button + button{border-left:1px solid var(--rule)}
+.seg button[aria-pressed="true"]{background:var(--panel-2);color:var(--citron)}
+.search{flex:1;min-width:200px;display:flex;align-items:center;gap:8px;border:1px solid var(--rule);border-radius:4px;padding:0 10px;background:var(--ink)}
+.search:focus-within{border-color:var(--peri)}
+.search svg{flex:none;color:var(--dimmer)}
+.search input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:var(--text);font:inherit;font-size:14px;padding:9px 0}
+.search input::placeholder{color:var(--dimmer)}
+.fstat{width:100%;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--dimmer);min-height:24px}
+.fstat b{color:var(--text);font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:3px 8px;border:1px solid var(--citron);color:var(--citron);border-radius:3px}
+.pill:hover{background:rgba(217,230,79,.08)}
+
+.jobs{margin-top:clamp(40px,5vw,64px)}
+.job{display:grid;grid-template-columns:260px 1fr;gap:clamp(24px,4vw,56px);transition:opacity .3s}
 @media (max-width:900px){.job{grid-template-columns:1fr;gap:22px}}
 .job + .job{margin-top:clamp(56px,7vw,88px);padding-top:clamp(56px,7vw,88px);border-top:1px solid var(--rule-soft)}
+.job.off{display:none}
+.job.quiet .job-meta{opacity:.35}
+.job-meta{transition:opacity .3s}
 .job-meta .co{font-family:var(--mono);font-size:clamp(19px,2.4vw,23px);font-weight:600;letter-spacing:-.03em}
 .job-meta .rl{margin-top:10px;color:var(--peri);font-size:14px}
 .job-meta .when{margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dimmer);line-height:1.9}
 .job-meta .ctx{margin-top:16px;font-size:13.5px;color:var(--dim);line-height:1.5;border-left:2px solid var(--rule);padding-left:12px}
-.bullets li{position:relative;padding:0 0 0 26px;color:var(--dim);font-size:15.5px;line-height:1.62;}
-.bullets li + li{margin-top:18px}
-.bullets li::before{content:"";position:absolute;left:0;top:.72em;width:11px;height:1px;background:var(--rule);transition:width .22s ease,background .22s ease;}
-.bullets li:hover::before{width:18px;background:var(--citron)}
-.stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:1px;background:var(--rule-soft);border:1px solid var(--rule-soft);border-radius:6px;overflow:hidden}
+.tenure{margin-top:18px;height:4px;background:var(--rule-soft);border-radius:2px;overflow:hidden}
+.tenure span{display:block;height:100%;background:var(--peri);width:0;transition:width 1.2s cubic-bezier(.22,.61,.36,1)}
+.reveal.in .tenure span{width:var(--w)}
+.tenure-l{margin-top:8px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dimmer)}
+
+.bullets li{position:relative;padding:0 0 0 26px;color:var(--dim);font-size:15.5px;line-height:1.62;transition:opacity .3s,color .3s}
+.bullets li + li{margin-top:22px}
+.bullets li::before{content:"";position:absolute;left:0;top:.72em;width:11px;height:1px;background:var(--rule);transition:width .22s ease,background .22s ease}
+.bullets li:hover::before,.bullets li.hit::before{width:18px;background:var(--citron)}
+.bullets li.hit{color:var(--text)}
+.bullets li.dim{opacity:.22}
+.bullets mark{background:rgba(217,230,79,.18);color:var(--text);border-radius:2px;padding:0 1px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;padding:3px 8px;border:1px solid var(--rule);border-radius:3px;color:var(--dimmer);transition:color .16s,border-color .16s}
+.chip:hover,.chip.on{color:var(--citron);border-color:var(--citron)}
+.empty{display:none;margin-top:28px;font-family:var(--mono);font-size:13px;color:var(--dim)}
+.empty.show{display:block}
+
+/* ---------- toolchain ---------- */
+.stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:1px;background:var(--rule-soft);border:1px solid var(--rule-soft);border-radius:6px;overflow:hidden;margin-top:clamp(40px,5vw,60px)}
 .grp{background:var(--panel);padding:24px 22px 26px}
 .grp-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:18px}
 .grp-h .t{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text)}
 .grp-h .c{font-family:var(--mono);font-size:11px;color:var(--dimmer);letter-spacing:.1em}
 .tags{display:flex;flex-wrap:wrap;gap:7px}
-.tag{font-size:12.5px;padding:5px 10px;border:1px solid var(--rule);border-radius:3px;color:var(--dim);background:var(--panel-2);transition:border-color .16s ease,color .16s ease;}
-.grp:hover .tag{border-color:#2C3454}
-.tag:hover{border-color:var(--citron);color:var(--citron)}
+.tag{font-size:12.5px;padding:5px 10px;border:1px solid var(--rule);border-radius:3px;color:var(--dim);background:var(--panel-2);transition:border-color .16s,color .16s;display:inline-flex;align-items:center;gap:7px}
+.tag sup{font-family:var(--mono);font-size:10px;color:var(--citron);top:0}
+button.tag:hover{border-color:var(--citron);color:var(--citron)}
+button.tag:disabled{cursor:default}
+.hint{margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--dimmer)}
+.hint sup{color:var(--citron)}
+
+/* ---------- credentials ---------- */
 .creds{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px)}
 @media (max-width:800px){.creds{grid-template-columns:1fr;gap:44px}}
 .cr-h{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer);padding-bottom:14px;border-bottom:1px solid var(--rule-soft)}
-.cr li{padding:20px 0;border-bottom:1px solid var(--rule-soft)}
+.cr li{padding:20px 0;border-bottom:1px solid var(--rule-soft);display:flex;justify-content:space-between;gap:16px;align-items:baseline}
 .cr .t{font-size:16px;color:var(--text)}
 .cr .m{margin-top:6px;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--dimmer);text-transform:uppercase}
-.wrap .contact-line{font-family:var(--mono);font-size:clamp(26px,5.4vw,58px);letter-spacing:-.045em;line-height:1.06;font-weight:600;color:var(--text)}
+.cr .y{font-family:var(--mono);font-size:11.5px;color:var(--dim);white-space:nowrap}
+
+/* ---------- contact ---------- */
+.wrap .contact-line{font-family:var(--mono);font-size:clamp(26px,5.4vw,58px);letter-spacing:-.045em;line-height:1.06;font-weight:600}
 .contact-line a{color:var(--citron);text-decoration:none;border-bottom:1px solid rgba(217,230,79,.28);transition:border-color .18s ease}
 .contact-line a:hover{border-bottom-color:var(--citron)}
 .reach{display:flex;flex-wrap:wrap;gap:10px 12px;margin-top:38px}
 .meta{margin-top:40px;display:flex;flex-wrap:wrap;gap:8px 34px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer)}
 .meta b{color:var(--dim);font-weight:400}
-body footer{border-top:1px solid var(--rule-soft);padding:26px 0 40px;text-align:left;color:var(--dimmer)}
-body footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dimmer)}
-a:focus-visible,button:focus-visible{outline:2px solid var(--citron);outline-offset:3px;border-radius:2px}
+#clock{color:var(--dim)}
+
+body footer{border-top:1px solid var(--rule-soft);padding:26px 0 40px;color:var(--dimmer)}
+body footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase}
+
+/* ---------- command palette ---------- */
+.pal{position:fixed;inset:0;z-index:80;background:rgba(5,7,14,.66);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:flex-start;justify-content:center;padding:12vh 16px 16px}
+.pal[hidden]{display:none}
+.pal-box{width:100%;max-width:560px;background:var(--panel);border:1px solid var(--rule);border-radius:8px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);animation:fade .2s ease}
+.pal-in{display:flex;align-items:center;gap:10px;padding:0 16px;border-bottom:1px solid var(--rule-soft)}
+.pal-in input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:var(--text);font:inherit;font-size:15px;padding:16px 0}
+.pal-in input::placeholder{color:var(--dimmer)}
+.pal ul{max-height:min(52vh,380px);overflow:auto;padding:6px}
+.pal li{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 12px;border-radius:4px;cursor:pointer;color:var(--dim);font-size:14px}
+.pal li small{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dimmer)}
+.pal li[aria-selected="true"]{background:var(--panel-2);color:var(--text)}
+.pal li[aria-selected="true"] small{color:var(--citron)}
+.pal .none{color:var(--dimmer);cursor:default}
+.pal-foot{padding:10px 16px;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--dimmer)}
+
+/* ---------- toast ---------- */
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;z-index:90;background:var(--citron);color:#0B0E1A;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;padding:10px 16px;border-radius:4px;transition:opacity .25s,transform .25s;pointer-events:none;max-width:calc(100vw - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- focus + motion ---------- */
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--citron);outline-offset:3px;border-radius:2px}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.22,.61,.36,1),transform .6s cubic-bezier(.22,.61,.36,1)}
 .reveal.in{opacity:1;transform:none}
 .d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}.d4{transition-delay:.24s}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}.reveal{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .reveal{opacity:1;transform:none}
+  .caret{display:none}
+}
 </style>
 </head>
 <body>
@@ -165,51 +342,66 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--citron);outline-off
 <div class="topbar" id="topbar">
   <div class="wrap">
     <a class="mark" href="#top"><span class="dot" aria-hidden="true"></span>SPM</a>
-    <nav class="navlinks" aria-label="Sections">
-      <a href="#record">Record</a>
-      <a href="#toolchain">Toolchain</a>
-      <a href="#credentials">Credentials</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="navr">
+      <nav class="navlinks" aria-label="Sections">
+        <a href="#loop">Loop</a>
+        <a href="#record">Record</a>
+        <a href="#toolchain">Toolchain</a>
+        <a href="#credentials">Credentials</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="kbtn" id="palBtn" type="button" aria-haspopup="dialog">Menu <kbd id="kbdHint">Ctrl K</kbd></button>
+    </div>
   </div>
 </div>
 
 <main id="main">
+
+<!-- ================= HERO ================= -->
 <section class="hero" id="top">
   <div class="wrap">
     <p class="status reveal in">Machine Learning Engineer &nbsp;·&nbsp; Irving, TX &nbsp;·&nbsp; <b>Authorized to work in the U.S.</b></p>
 
     <h1 class="name reveal in d1"><span>Siva Prasad</span><span class="two">Mandalapu</span></h1>
 
-    <p class="role reveal in d2">Production ML &nbsp;/&nbsp; MLOps &nbsp;/&nbsp; Fraud &amp; Healthcare AI &nbsp;&nbsp;—&nbsp;&nbsp; Regulated Systems</p>
+    <p class="role reveal in d2"><span class="sr">Production ML, MLOps, Fraud and Healthcare AI</span><span aria-hidden="true">&gt; <span class="typed" id="typed">Production ML</span><span class="caret"></span></span></p>
 
     <p class="pitch reveal in d3">
-      Machine learning engineer who gets models into production and keeps them healthy there. <em>Five years</em> running real-time ML in regulated industries: <em>5M+ fraud scores/day</em> at HDFC Bank and <em>13x faster medical-imaging inference</em> at Philips Healthcare. <em>AWS Certified Machine Learning – Specialty.</em>
+      I get models into production and keep them healthy there. <em>Five years</em> running real-time ML in
+      regulated industries: <em>5M+ fraud scores a day at 99.9% uptime</em> at HDFC Bank, and
+      <em>13&times; faster medical-imaging inference</em> at Philips Healthcare. AWS Certified Machine Learning – Specialty.
     </p>
 
     <div class="cta reveal in d4">
       <a class="btn solid" href="mailto:msprasadm.1996@gmail.com">Email Siva</a>
-      <a class="btn" href="https://www.linkedin.com/in/sivaprasadmandalapu/" target="_blank" rel="noreferrer">LinkedIn</a>
-      <a class="btn" href="https://github.com/SNVVPRASAD" target="_blank" rel="noreferrer">GitHub</a>
-      <a class="btn" href="#top">Portfolio</a>
+      <a class="btn" href="https://www.linkedin.com/in/sivaprasadmandalapu/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/SNVVPRASAD" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn ghost" href="resume.pdf" download>Résumé &#8595;</a>
     </div>
 
-    <div class="scope reveal">
+    <!-- ---- signature element: three instruments, one panel ---- -->
+    <div class="scope spot reveal">
       <div class="scope-head">
-        <span>Inference latency &nbsp;·&nbsp; chest X-ray pipeline</span>
-        <span class="src">Philips Healthcare &nbsp;·&nbsp; 10K+ scans / day</span>
+        <div class="tabs" role="tablist" aria-label="Production metrics">
+          <button class="tab" role="tab" id="t-lat" aria-controls="p-lat" aria-selected="true">Latency</button>
+          <button class="tab" role="tab" id="t-fraud" aria-controls="p-fraud" aria-selected="false" tabindex="-1">Fraud scoring</button>
+          <button class="tab" role="tab" id="t-rel" aria-controls="p-rel" aria-selected="false" tabindex="-1">Release cycle</button>
+        </div>
+        <span class="src" id="scopeSrc">Philips Healthcare &nbsp;·&nbsp; 10K+ scans / day</span>
       </div>
-      <div class="scope-body">
+
+      <!-- pane 1: latency trace -->
+      <div class="pane scope-body" id="p-lat" role="tabpanel" aria-labelledby="t-lat">
         <div class="chart">
-          <svg viewBox="0 0 960 286" role="img" aria-label="Line chart showing inference latency improving from 2000 milliseconds to 150 milliseconds">
+          <svg viewBox="0 0 960 286" role="img" aria-label="Line chart showing per-scan inference latency falling from 2000 milliseconds to 150 milliseconds across three optimization passes: TensorRT conversion, containerized FastAPI serving, and on-prem GPU edge devices.">
             <g>
               <line class="ax" x1="66" y1="46" x2="946" y2="46"></line>
               <line class="ax" x1="66" y1="89" x2="946" y2="89"></line>
               <line class="ax" x1="66" y1="133" x2="946" y2="133"></line>
               <line class="ax" x1="66" y1="176" x2="946" y2="176"></line>
               <line class="ax" x1="66" y1="206" x2="946" y2="206"></line>
-              <text class="axlab" x="58" y="50" text-anchor="end">2000</text>
-              <text class="axlab" x="58" y="93" text-anchor="end">1500</text>
+              <text class="axlab" x="58" y="50"  text-anchor="end">2000</text>
+              <text class="axlab" x="58" y="93"  text-anchor="end">1500</text>
               <text class="axlab" x="58" y="137" text-anchor="end">1000</text>
               <text class="axlab" x="58" y="180" text-anchor="end">500</text>
               <text class="axlab" x="58" y="210" text-anchor="end">150</text>
@@ -219,138 +411,228 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--citron);outline-off
               <line class="mkline" x1="270" y1="106" x2="270" y2="244"></line>
               <line class="mkline" x1="410" y1="144" x2="410" y2="244"></line>
               <line class="mkline" x1="700" y1="205" x2="700" y2="244"></line>
-              <text class="mklab" x="270" y="262" text-anchor="middle">TensorRT</text>
-              <text class="mklab" x="410" y="262" text-anchor="middle">FastAPI serving</text>
-              <text class="mklab" x="700" y="262" text-anchor="middle">edge + SageMaker</text>
+              <text class="mklab" x="270" y="262" text-anchor="middle">PyTorch → TensorRT</text>
+              <text class="mklab" x="410" y="262" text-anchor="middle">FastAPI containers</text>
+              <text class="mklab" x="700" y="262" text-anchor="middle">on-prem GPU edge</text>
             </g>
             <path class="traceghost" d="M70,46 L150,45 L200,58 L270,100 L360,98 L410,138 L500,136 L560,176 L650,174 L700,199 L800,204 L930,206"></path>
             <path id="trace" class="trace" d="M70,46 L150,45 L200,58 L270,100 L360,98 L410,138 L500,136 L560,176 L650,174 L700,199 L800,204 L930,206"></path>
-
             <circle class="mk" cx="270" cy="100" r="4"></circle>
             <circle class="mk" cx="410" cy="138" r="4"></circle>
             <circle class="mk" cx="700" cy="199" r="4"></circle>
-
             <circle id="halo" class="halo" cx="70" cy="46" r="11"></circle>
             <circle id="head" class="head" cx="70" cy="46" r="4.5"></circle>
             <text class="axlab" x="66" y="282">optimization pass &#8594;</text>
           </svg>
         </div>
-
         <div class="readout">
-          <span class="lab">Current p50</span>
+          <span class="lab">Per-scan latency</span>
           <div class="big"><span id="ms">2000</span><i>ms</i></div>
-          <p class="sub">Down from 2s. <b>13&times; faster</b>, holding <b>92% precision</b> — PyTorch models converted to TensorRT and served through containerized FastAPI services on edge GPU devices with monitoring in Prometheus and Grafana.</p>
+          <p class="sub">Down from 2s. <b>13&times; faster</b> at 10K+ scans a day, <b>no loss in precision</b>. PyTorch models converted to TensorRT, served as containerized FastAPI on on-prem GPU edge devices.</p>
+          <button class="mini" id="replay" type="button">&#8635; Replay</button>
+        </div>
+      </div>
+
+      <!-- pane 2: fraud scoring stream -->
+      <div class="pane scope-body" id="p-fraud" role="tabpanel" aria-labelledby="t-fraud" hidden>
+        <div class="chart">
+          <svg id="fsvg" viewBox="0 0 960 286" role="img" aria-label="Illustrative stream of transactions being scored, each under a 100 millisecond latency budget, with occasional flagged transactions highlighted.">
+            <g>
+              <line class="ax" x1="66" y1="236" x2="946" y2="236"></line>
+              <line class="ax" x1="66" y1="141" x2="946" y2="141"></line>
+              <line class="ax" x1="66" y1="46" x2="946" y2="46"></line>
+              <text class="axlab" x="58" y="240" text-anchor="end">0</text>
+              <text class="axlab" x="58" y="145" text-anchor="end">60</text>
+              <text class="axlab" x="58" y="50" text-anchor="end">120</text>
+              <text class="axlab" x="14" y="141" transform="rotate(-90 14 141)" text-anchor="middle">ms</text>
+              <line class="budget" x1="66" y1="78" x2="946" y2="78"></line>
+              <text class="budlab" x="940" y="70" text-anchor="end">100 ms budget</text>
+            </g>
+            <g id="txs"></g>
+            <text class="axlab" x="66" y="270">time &#8594; &nbsp; each dot is one scored transaction (illustrative) &nbsp; · &nbsp;</text>
+            <circle cx="602" cy="266.5" r="3.5" class="tx flag"></circle>
+            <text class="axlab" x="612" y="270">flagged</text>
+          </svg>
+        </div>
+        <div class="readout">
+          <span class="lab">Scored since you got here</span>
+          <div class="big" style="font-size:clamp(30px,4.6vw,40px)"><span id="scored">0</span></div>
+          <p class="sub">At <b>5M+ a day</b> that's ~58 every second, each <b>under 100 ms</b> at <b>99.9% uptime</b>, on containerized endpoints on Azure ML and Kubernetes.</p>
+          <p class="note">Counter runs at the real daily rate</p>
+        </div>
+      </div>
+
+      <!-- pane 3: release cycle -->
+      <div class="pane scope-body" id="p-rel" role="tabpanel" aria-labelledby="t-rel" hidden>
+        <div class="rel">
+          <div class="rel-row"><span class="k">Before</span><div class="bar"><span data-w="100%"></span><em>4 weeks</em></div></div>
+          <div class="rel-row"><span class="k">After</span><div class="bar after"><span data-w="25%"></span><em>1 week</em></div></div>
+          <div class="steps" id="steps" aria-label="ML CI/CD pipeline stages">
+            <span class="step">commit</span><span class="arr">&#8594;</span>
+            <span class="step">GitHub Actions</span><span class="arr">&#8594;</span>
+            <span class="step">Jenkins</span><span class="arr">&#8594;</span>
+            <span class="step">Docker build</span><span class="arr">&#8594;</span>
+            <span class="step">regression tests · locked validation set</span><span class="arr">&#8594;</span>
+            <span class="step">MLflow registry</span><span class="arr">&#8594;</span>
+            <span class="step">Kubernetes</span>
+          </div>
+        </div>
+        <div class="readout">
+          <span class="lab">Release-candidate turnaround</span>
+          <div class="big">1<i>week</i></div>
+          <p class="sub">Down from <b>4 weeks</b>. ML CI/CD with GitHub Actions, Jenkins, Docker and Kubernetes, an MLflow model registry, and <b>regression tests on a locked validation set</b>.</p>
+          <button class="mini" id="runPipe" type="button">&#9654; Run pipeline</button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ================= METRICS ================= -->
 <section class="sec" style="padding-top:0" aria-label="Headline results">
   <div class="wrap">
     <div class="strip" id="strip">
       <div class="cell reveal">
         <div class="v"><span class="cnt" data-to="13">0</span><u>&times;</u></div>
-        <p class="k">faster diagnostic inference, 2s to 150ms</p>
+        <p class="k">faster medical-imaging inference, 2s to 150ms</p>
         <p class="src">Philips</p>
       </div>
       <div class="cell reveal d1">
-        <div class="v"><span class="cnt" data-to="95">0</span><u>%</u></div>
-        <p class="k">fraud recall across 5M+ daily transactions</p>
+        <div class="v"><span class="cnt" data-to="5">0</span><u>M+</u></div>
+        <p class="k">real-time fraud scores a day, under 100 ms each</p>
         <p class="src">HDFC Bank</p>
       </div>
       <div class="cell reveal d2">
         <div class="v"><span class="cnt" data-to="99.9" data-dec="1">0</span><u>%</u></div>
-        <p class="k">serving SLA held through peak banking hours</p>
+        <p class="k">uptime on fraud-scoring endpoints</p>
         <p class="src">HDFC Bank</p>
       </div>
       <div class="cell reveal d3">
-        <div class="v"><span class="cnt" data-to="500">0</span><u>GB</u></div>
-        <p class="k">imaging data processed per training cycle</p>
-        <p class="src">Philips</p>
+        <div class="v"><span class="cnt" data-to="35">0</span><u>%</u></div>
+        <p class="k">lower fraud losses, with 30% fewer false positives</p>
+        <p class="src">HDFC Bank</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ================= THE LOOP ================= -->
+<section class="sec" id="loop">
+  <div class="wrap">
+    <p class="eyebrow reveal">The loop <b>&#8226;</b> click a stage</p>
+    <h2 class="h2 reveal d1">every stage of a model's life, shipped twice</h2>
+    <p class="lede reveal d2">Data to monitoring and back again, once for medical imaging and once for fraud. Pick a stage to see what I built there.</p>
+
+    <div class="loop">
+      <div class="dial reveal d2" id="dial">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#1A2039" stroke-width=".4"></circle>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#232A45" stroke-width=".4" stroke-dasharray=".6 2.4"></circle>
+          <circle class="arc" id="arc" cx="50" cy="50" r="40" fill="none" stroke="#D9E64F" stroke-width=".5" stroke-linecap="round" transform="rotate(-90 50 50)" stroke-dasharray="0 252"></circle>
+        </svg>
+        <div class="hub" aria-hidden="true"><div class="i" id="hubI">01</div><div class="l">of 06</div></div>
+      </div>
+      <div class="card spot reveal d3" id="stageCard" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
 <section class="sec" id="record">
   <div class="wrap">
-    <p class="eyebrow reveal">Professional Summary</p>
-    <h2 class="h2 reveal d1">production ML, MLOps, fraud &amp; healthcare AI</h2>
-    <p class="lede reveal d2">Machine learning engineer who gets models into production and keeps them healthy there. Five years running real-time ML in regulated industries: 5M+ fraud scores/day at HDFC Bank and 13x faster medical-imaging inference at Philips Healthcare. AWS Certified Machine Learning – Specialty.</p>
+    <p class="eyebrow reveal">Production record <b>&#8226;</b> 2019 &#8212; present</p>
+    <h2 class="h2 reveal d1">what shipped, and what it moved</h2>
+    <p class="lede reveal d2">Two regulated environments, one job description: get the model out of the notebook and keep it trustworthy once it's there. Filter by company, tool or keyword.</p>
 
-    <div style="margin-top:clamp(48px,6vw,76px)">
-      <article class="job reveal">
+    <div class="fbar reveal d3" role="search">
+      <div class="seg" role="group" aria-label="Company">
+        <button type="button" data-co="all" aria-pressed="true">All</button>
+        <button type="button" data-co="philips" aria-pressed="false">Philips</button>
+        <button type="button" data-co="hdfc" aria-pressed="false">HDFC</button>
+      </div>
+      <label class="search">
+        <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="11" y1="11" x2="15" y2="15" stroke="currentColor" stroke-width="1.5"/></svg>
+        <input id="q" type="search" aria-label="Search the record" placeholder="Try kubernetes, drift, latency, SHAP…" autocomplete="off">
+      </label>
+      <div class="fstat" id="fstat" aria-live="polite"></div>
+    </div>
+
+    <div class="jobs">
+      <article class="job reveal" data-co="philips">
         <div class="job-meta">
           <h3 class="co">Philips Healthcare</h3>
           <p class="rl">AI/ML Engineer (Contract)</p>
           <p class="when">Dec 2023 &#8212; Present<br>Remote</p>
-          <p class="ctx">Clinical imaging AI under HIPAA. Models that radiologists actually read from.</p>
+          <p class="ctx">Medical-imaging AI on on-prem GPU edge devices. Models radiologists work from every day.</p>
+          <div class="tenure" aria-hidden="true"><span style="--w:var(--ph)" id="tenPh"></span></div>
+          <p class="tenure-l" id="tenPhL"></p>
         </div>
         <ul class="bullets">
-          <li>Cut inference latency <span class="n">13&times;</span> (from <span class="n">2s</span> to <span class="n">150ms</span> per scan) at <span class="n">10K+</span> scans/day by converting PyTorch models to TensorRT and rebuilding model serving as containerized FastAPI services on on-prem GPU edge devices.</li>
-          <li>Cut model release-candidate turnaround from <span class="n">4 weeks</span> to <span class="n">1</span> by building ML CI/CD with GitHub Actions, Jenkins, Docker and Kubernetes, an MLflow model registry, and regression tests on a locked validation set.</li>
-          <li>Monitored drift and model health for the <span class="n">10K+</span> scans/day service with Prometheus and Grafana, tracking data drift, service health, and per-subgroup model performance to provide early visibility into model and service issues.</li>
-          <li>Made every training run reproducible over <span class="n">500GB+</span> of imaging data with Spark and Kafka pipelines, schema validation and automated data-quality gates feeding AWS SageMaker training jobs.</li>
-          <li>Trained models across <span class="n">5 hospitals</span> with zero patient images moved by building the client-side training and evaluation pipeline for a federated learning pilot using Flower.</li>
-          <li>Helped cut radiologist review time <span class="n">35%</span> in an LLM pilot by building the LLMOps layer for a LangGraph report-drafting pipeline on Azure OpenAI with LangSmith tracing and automated checks for unsupported statements.</li>
+          <li data-stage="serve" data-tools="PyTorch|TensorRT|FastAPI|Docker" data-concepts="Real-time inference|GPU optimization">Cut inference latency <span class="n">13&times;</span> (<span class="n">2s</span> to <span class="n">150ms</span> per scan) at <span class="n">10K+</span> scans a day with no loss in precision, by converting PyTorch models to TensorRT and rebuilding model serving as containerized FastAPI services on on-prem GPU edge devices.</li>
+          <li data-stage="ship" data-tools="GitHub Actions|Jenkins|Docker|Kubernetes|MLflow" data-concepts="CI/CD for ML|Model registry">Cut model release-candidate turnaround from <span class="n">4 weeks</span> to <span class="n">1</span> by building ML CI/CD with GitHub Actions, Jenkins, Docker and Kubernetes, an MLflow model registry, and regression tests on a locked validation set.</li>
+          <li data-stage="monitor" data-tools="Prometheus|Grafana" data-concepts="Drift monitoring">Monitored drift and model health for the <span class="n">10K+</span> scans/day service with Prometheus and Grafana, tracking data drift, service health and per-subgroup model performance to give early visibility into model and service issues.</li>
+          <li data-stage="data" data-tools="Spark|Kafka|AWS SageMaker" data-concepts="">Made every training run reproducible over <span class="n">500GB+</span> of imaging data with Spark and Kafka pipelines, schema validation and automated data-quality gates feeding AWS SageMaker training jobs.</li>
+          <li data-stage="train" data-tools="Flower" data-concepts="">Trained models across <span class="n">5</span> hospitals with <span class="n">zero</span> patient images moved, by building the client-side training and evaluation pipeline for a federated learning pilot (Flower).</li>
+          <li data-stage="explain" data-tools="LangGraph|LangSmith|Azure OpenAI" data-concepts="">Helped cut radiologist review time <span class="n">35%</span> in an LLM pilot by building the LLMOps layer for a LangGraph report-drafting pipeline on Azure OpenAI: LangSmith tracing and automated checks for unsupported statements.</li>
         </ul>
       </article>
 
-      <article class="job reveal">
+      <article class="job reveal" data-co="hdfc">
         <div class="job-meta">
           <h3 class="co">HDFC Bank</h3>
           <p class="rl">AI/ML Engineer, Fraud &amp; Risk</p>
           <p class="when">Dec 2019 &#8212; Nov 2022<br>Bengaluru, India</p>
-          <p class="ctx">India's largest private bank, 70M+ customers. Every model decision had to survive an RBI audit.</p>
+          <p class="ctx">Real-time fraud scoring where every flagged transaction has to make sense to an RBI auditor.</p>
+          <div class="tenure" aria-hidden="true"><span style="--w:var(--hd)" id="tenHd"></span></div>
+          <p class="tenure-l" id="tenHdL"></p>
         </div>
         <ul class="bullets">
-          <li>Served <span class="n">5M+</span> real-time fraud scores/day at under <span class="n">100ms</span> and <span class="n">99.9%</span> uptime by deploying containerized model endpoints on Azure ML and Kubernetes.</li>
-          <li>Turned model updates into scheduled, automated releases by building Kubeflow retraining pipelines with MLflow experiment tracking and model versioning, feature and score drift detection, and automated rollback.</li>
-          <li>Cut false-positive alerts <span class="n">30%</span> at <span class="n">95%</span> recall and fraud losses <span class="n">35%</span> by partnering with data scientists and fraud analysts to productionize an LSTM, Transformer and graph neural network ensemble.</li>
-          <li>Cut fraud investigation time <span class="n">40%</span> by attaching SHAP explanations to every flagged transaction and auto-generating case summaries in the format required by RBI auditors.</li>
-          <li>Improved model F1 by <span class="n">22%</span> with Pandas and Dask feature engineering pipelines over <span class="n">1M+</span> labeled transactions.</li>
+          <li data-stage="serve" data-tools="Azure ML|Kubernetes|Docker" data-concepts="Real-time inference">Served <span class="n">5M+</span> real-time fraud scores a day at under <span class="n">100 ms</span> and <span class="n">99.9%</span> uptime by deploying containerized model endpoints on Azure ML and Kubernetes.</li>
+          <li data-stage="ship monitor" data-tools="Kubeflow|MLflow" data-concepts="Automated retraining|Experiment tracking|Model registry|Drift monitoring|Rollback">Turned model updates into scheduled, automated releases by building Kubeflow retraining pipelines with MLflow experiment tracking and model versioning, feature and score drift detection, and automated rollback.</li>
+          <li data-stage="train" data-tools="" data-concepts="">Cut false-positive alerts <span class="n">30%</span> at <span class="n">95%</span> recall and fraud losses <span class="n">35%</span> by partnering with data scientists and fraud analysts to productionize an LSTM, Transformer and graph neural network ensemble.</li>
+          <li data-stage="explain" data-tools="SHAP" data-concepts="">Cut fraud investigation time <span class="n">40%</span> by attaching SHAP explanations to every flagged transaction and auto-generating case summaries in the format required by RBI auditors.</li>
+          <li data-stage="data" data-tools="Pandas|Dask" data-concepts="">Improved model F1 <span class="n">22%</span> with Pandas and Dask feature engineering pipelines over <span class="n">1M+</span> labeled transactions.</li>
         </ul>
       </article>
+      <p class="empty" id="empty">Nothing in the record matches that. <button type="button" class="pill" data-clear>Clear filters</button></p>
     </div>
   </div>
 </section>
 
+<!-- ================= TOOLCHAIN ================= -->
 <section class="sec" id="toolchain">
   <div class="wrap">
-    <p class="eyebrow reveal">Technical Skills</p>
+    <p class="eyebrow reveal">Toolchain</p>
     <h2 class="h2 reveal d1">what I reach for</h2>
-    <p class="lede reveal d2">MLOps, model serving, observability, cloud, data engineering, and the machine learning stack needed for regulated production systems.</p>
+    <p class="lede reveal d2">Grouped by the job it does. Click any tool with a count to see where it shows up in the record.</p>
 
-    <div class="stack reveal d3" style="margin-top:clamp(40px,5vw,60px)">
-      <div class="grp">
-        <div class="grp-h"><span class="t">MLOps</span><span class="c">10</span></div>
-        <div class="tags"><span class="tag">CI/CD for ML</span><span class="tag">MLflow</span><span class="tag">Kubeflow</span><span class="tag">Airflow</span><span class="tag">GitHub Actions</span><span class="tag">Jenkins</span><span class="tag">Model registry</span><span class="tag">Drift monitoring</span><span class="tag">Rollback</span></div>
+    <div class="stack reveal d3" id="stack">
+      <div class="grp spot">
+        <div class="grp-h"><span class="t">MLOps</span><span class="c"></span></div>
+        <div class="tags"><button class="tag" data-tool="CI/CD for ML">CI/CD for ML</button><button class="tag" data-tool="Model registry">Model registry</button><button class="tag" data-tool="Experiment tracking">Experiment tracking</button><button class="tag" data-tool="Automated retraining">Automated retraining</button><button class="tag" data-tool="Drift monitoring">Drift monitoring</button><button class="tag" data-tool="Rollback">Rollback</button><button class="tag" data-tool="MLflow">MLflow</button><button class="tag" data-tool="Kubeflow">Kubeflow</button><button class="tag" data-tool="Airflow">Airflow</button><button class="tag" data-tool="GitHub Actions">GitHub Actions</button><button class="tag" data-tool="Jenkins">Jenkins</button></div>
       </div>
-
-      <div class="grp">
-        <div class="grp-h"><span class="t">Model Serving</span><span class="c">10</span></div>
-        <div class="tags"><span class="tag">Real-time inference</span><span class="tag">GPU optimization</span><span class="tag">TensorRT</span><span class="tag">FastAPI</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">AWS SageMaker</span><span class="tag">Azure ML</span></div>
+      <div class="grp spot">
+        <div class="grp-h"><span class="t">Model Serving</span><span class="c"></span></div>
+        <div class="tags"><button class="tag" data-tool="Real-time inference">Real-time inference</button><button class="tag" data-tool="GPU optimization">GPU optimization</button><button class="tag" data-tool="TensorRT">TensorRT</button><button class="tag" data-tool="FastAPI">FastAPI</button><button class="tag" data-tool="Docker">Docker</button><button class="tag" data-tool="Kubernetes">Kubernetes</button><button class="tag" data-tool="AWS SageMaker">AWS SageMaker</button><button class="tag" data-tool="Azure ML">Azure ML</button></div>
       </div>
-
-      <div class="grp">
-        <div class="grp-h"><span class="t">Observability</span><span class="c">6</span></div>
-        <div class="tags"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">LangSmith</span><span class="tag">Weights &amp; Biases</span><span class="tag">Monitoring</span><span class="tag">Data drift</span></div>
+      <div class="grp spot">
+        <div class="grp-h"><span class="t">Observability</span><span class="c"></span></div>
+        <div class="tags"><button class="tag" data-tool="Prometheus">Prometheus</button><button class="tag" data-tool="Grafana">Grafana</button><button class="tag" data-tool="LangSmith">LangSmith</button><button class="tag" data-tool="Weights &amp; Biases">Weights &amp; Biases</button></div>
       </div>
-
-      <div class="grp">
-        <div class="grp-h"><span class="t">Data &amp; Cloud</span><span class="c">9</span></div>
-        <div class="tags"><span class="tag">Spark</span><span class="tag">Kafka</span><span class="tag">Pandas</span><span class="tag">Dask</span><span class="tag">PostgreSQL</span><span class="tag">AWS (S3, EC2, Lambda, EKS)</span><span class="tag">Terraform</span></div>
+      <div class="grp spot">
+        <div class="grp-h"><span class="t">Data &amp; Cloud</span><span class="c"></span></div>
+        <div class="tags"><button class="tag" data-tool="Spark">Spark</button><button class="tag" data-tool="Kafka">Kafka</button><button class="tag" data-tool="Pandas">Pandas</button><button class="tag" data-tool="Dask">Dask</button><button class="tag" data-tool="PostgreSQL">PostgreSQL</button><button class="tag" data-tool="AWS S3">AWS S3</button><button class="tag" data-tool="EC2">EC2</button><button class="tag" data-tool="Lambda">Lambda</button><button class="tag" data-tool="EKS">EKS</button><button class="tag" data-tool="Terraform">Terraform</button></div>
       </div>
-
-      <div class="grp">
-        <div class="grp-h"><span class="t">ML &amp; Languages</span><span class="c">11</span></div>
-        <div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Bash</span><span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">scikit-learn</span><span class="tag">XGBoost</span><span class="tag">LightGBM</span><span class="tag">LangGraph</span><span class="tag">SHAP</span><span class="tag">Flower</span></div>
+      <div class="grp spot">
+        <div class="grp-h"><span class="t">ML &amp; Languages</span><span class="c"></span></div>
+        <div class="tags"><button class="tag" data-tool="Python">Python</button><button class="tag" data-tool="SQL">SQL</button><button class="tag" data-tool="Bash">Bash</button><button class="tag" data-tool="PyTorch">PyTorch</button><button class="tag" data-tool="TensorFlow">TensorFlow</button><button class="tag" data-tool="scikit-learn">scikit-learn</button><button class="tag" data-tool="XGBoost">XGBoost</button><button class="tag" data-tool="LightGBM">LightGBM</button><button class="tag" data-tool="LangGraph">LangGraph</button><button class="tag" data-tool="SHAP">SHAP</button><button class="tag" data-tool="Flower">Flower</button></div>
       </div>
     </div>
+    <p class="hint reveal">Count <sup>n</sup> = results in the record that used it.</p>
   </div>
 </section>
 
+<!-- ================= CREDENTIALS ================= -->
 <section class="sec" id="credentials">
   <div class="wrap">
     <p class="eyebrow reveal">Credentials</p>
@@ -358,76 +640,103 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--citron);outline-off
       <div class="reveal d1">
         <p class="cr-h">Education</p>
         <ul class="cr">
-          <li>
-            <p class="t">M.S., Information Systems</p>
-            <p class="m">Marist College &nbsp;·&nbsp; Poughkeepsie, NY &nbsp;·&nbsp; 2023&#8211;2024</p>
-          </li>
-          <li>
-            <p class="t">B.Tech, Mechanical Engineering</p>
-            <p class="m">Sir C.R.R. College of Engineering &nbsp;·&nbsp; India</p>
-          </li>
+          <li><div><p class="t">M.S., Information Systems</p><p class="m">Marist College &#8226; Poughkeepsie, NY</p></div><span class="y">Jan 2023 – Dec 2024</span></li>
+          <li><div><p class="t">B.Tech, Mechanical Engineering</p><p class="m">Sir C.R.R. College of Engineering &#8226; India</p></div><span class="y">Jun 2015 – May 2019</span></li>
         </ul>
       </div>
       <div class="reveal d2">
         <p class="cr-h">Certifications</p>
         <ul class="cr">
-          <li>
-            <p class="t">AWS Certified Machine Learning — Specialty</p>
-            <p class="m">Amazon Web Services</p>
-          </li>
-          <li>
-            <p class="t">TensorFlow Developer Certificate</p>
-            <p class="m">Google</p>
-          </li>
-          <li>
-            <p class="t">Generative AI with Large Language Models</p>
-            <p class="m">DeepLearning.AI &amp; AWS</p>
-          </li>
+          <li><div><p class="t">AWS Certified Machine Learning – Specialty</p><p class="m">Amazon Web Services</p></div></li>
+          <li><div><p class="t">TensorFlow Developer Certificate</p><p class="m">Google</p></div></li>
+          <li><div><p class="t">Generative AI with Large Language Models</p><p class="m">DeepLearning.AI &amp; AWS</p></div></li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ================= CONTACT ================= -->
 <section class="sec" id="contact">
   <div class="wrap">
     <p class="eyebrow reveal">Contact</p>
-    <h2 class="contact-line reveal d1">Need a model that can run in production,<br>not just in a notebook? <a href="mailto:msprasadm.1996@gmail.com">Let's talk.</a></h2>
+    <h2 class="contact-line reveal d1">Got a model stuck<br>between notebook and<br>production? <a href="mailto:msprasadm.1996@gmail.com">Let's talk.</a></h2>
 
     <div class="reach reveal d2">
       <a class="btn solid" href="mailto:msprasadm.1996@gmail.com">Email</a>
+      <button class="btn" type="button" data-copy="msprasadm.1996@gmail.com">Copy email</button>
       <a class="btn" href="tel:+19433008560">(943) 300-8560</a>
-      <a class="btn" href="https://www.linkedin.com/in/sivaprasadmandalapu/" target="_blank" rel="noreferrer">LinkedIn</a>
-      <a class="btn" href="https://github.com/SNVVPRASAD" target="_blank" rel="noreferrer">GitHub</a>
-      <a class="btn" href="#top">Portfolio</a>
+      <a class="btn" href="https://www.linkedin.com/in/sivaprasadmandalapu/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/SNVVPRASAD" target="_blank" rel="noopener">GitHub</a>
     </div>
 
     <div class="meta reveal d3">
       <span>Based in <b>Irving, TX</b></span>
-      <span>Open to <b>remote &amp; hybrid</b></span>
+      <span>Local time <b id="clock">—</b></span>
       <span><b>Authorized to work in the U.S.</b></span>
     </div>
   </div>
 </section>
+
 </main>
 
 <footer>
   <div class="wrap">
     <span>Siva Prasad Mandalapu &#8212; Machine Learning Engineer</span>
-    <span>Production ML, MLOps, Fraud &amp; Healthcare AI</span>
+    <span>One HTML file. No frameworks, no trackers.</span>
   </div>
 </footer>
 
+<!-- command palette -->
+<div class="pal" id="pal" hidden role="dialog" aria-modal="true" aria-label="Command menu">
+  <div class="pal-box">
+    <div class="pal-in">
+      <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" style="color:#5F6A8C"><circle cx="7" cy="7" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="11" y1="11" x2="15" y2="15" stroke="currentColor" stroke-width="1.5"/></svg>
+      <input id="palq" type="text" placeholder="Jump to a section, copy email, filter by tool…" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="pall" aria-autocomplete="list">
+    </div>
+    <ul id="pall" role="listbox" aria-label="Commands"></ul>
+    <div class="pal-foot">&#8593;&#8595; move &nbsp;·&nbsp; &#8629; run &nbsp;·&nbsp; esc close</div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
 (function () {
+  'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var EMAIL = 'msprasadm.1996@gmail.com';
 
-  var prog = document.getElementById('prog');
-  var topbar = document.getElementById('topbar');
-  var ticking = false;
+  /* ---------------- toast + copy ---------------- */
+  var toastEl = $('#toast'), toastT;
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(function () { toastEl.classList.remove('show'); }, 2200);
+  }
+  function copy(text) {
+    function fallback() {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        var ok = document.execCommand('copy'); document.body.removeChild(ta);
+        toast(ok ? 'Copied ' + text : text);
+      } catch (e) { toast(text); }
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { toast('Copied ' + text); }, fallback);
+    } else { fallback(); }
+  }
+  $$('[data-copy]').forEach(function (b) { b.addEventListener('click', function () { copy(b.dataset.copy); }); });
+
+  /* ---------------- scroll progress + sticky border + scrollspy ---------------- */
+  var prog = $('#prog'), topbar = $('#topbar'), ticking = false;
   function onScroll() {
-    if (ticking) return;
-    ticking = true;
+    if (ticking) return; ticking = true;
     requestAnimationFrame(function () {
       var h = document.documentElement.scrollHeight - window.innerHeight;
       var p = h > 0 ? window.scrollY / h : 0;
@@ -439,100 +748,520 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--citron);outline-off
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  var items = document.querySelectorAll('.reveal');
+  var navLinks = $$('.navlinks a');
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        navLinks.forEach(function (a) { a.setAttribute('aria-current', a.getAttribute('href') === '#' + e.target.id ? 'true' : 'false'); });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ['top', 'loop', 'record', 'toolchain', 'credentials', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
+  }
+
+  /* ---------------- reveal ---------------- */
+  var items = $$('.reveal');
   if (reduce || !('IntersectionObserver' in window)) {
     items.forEach(function (el) { el.classList.add('in'); });
   } else {
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-      });
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
     items.forEach(function (el) { io.observe(el); });
   }
 
-  var trace = document.getElementById('trace');
-  var head = document.getElementById('head');
-  var halo = document.getElementById('halo');
-  var ms = document.getElementById('ms');
-
-  var Y_TOP = 46, Y_BOT = 206, MS_TOP = 2000, MS_BOT = 150;
-  function msAt(y) {
-    var t = (y - Y_TOP) / (Y_BOT - Y_TOP);
-    return Math.round(MS_TOP - Math.min(1, Math.max(0, t)) * (MS_TOP - MS_BOT));
+  /* ---------------- spotlight ---------------- */
+  if (!reduce && window.matchMedia('(hover:hover)').matches) {
+    document.addEventListener('pointermove', function (ev) {
+      var el = ev.target.closest && ev.target.closest('.spot');
+      if (!el) return;
+      var r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', (ev.clientX - r.left) + 'px');
+      el.style.setProperty('--my', (ev.clientY - r.top) + 'px');
+    }, { passive: true });
   }
 
-  function settle() {
-    trace.style.strokeDashoffset = '0';
-    var end = trace.getPointAtLength(trace.getTotalLength());
-    head.setAttribute('cx', end.x); head.setAttribute('cy', end.y);
-    halo.setAttribute('cx', end.x); halo.setAttribute('cy', end.y);
-    ms.textContent = '150';
+  /* ---------------- typed role ---------------- */
+  var words = ['Production ML', 'MLOps', 'Fraud AI', 'Healthcare AI', 'Real-time inference'];
+  var typed = $('#typed');
+  if (!reduce) {
+    var wi = 0, ci = words[0].length, del = true;
+    (function tick() {
+      var w = words[wi];
+      if (del) {
+        ci--; typed.textContent = w.slice(0, ci);
+        if (ci <= 0) { del = false; wi = (wi + 1) % words.length; }
+        setTimeout(tick, 38);
+      } else {
+        var nw = words[wi]; ci++; typed.textContent = nw.slice(0, ci);
+        if (ci >= nw.length) { del = true; setTimeout(tick, 1900); } else { setTimeout(tick, 70); }
+      }
+    })();
   }
 
+  /* ---------------- tenure bars ---------------- */
+  (function () {
+    function months(a, b) { return (b.getFullYear() - a.getFullYear()) * 12 + (b.getMonth() - a.getMonth()) + 1; }
+    function fmt(m) { var y = Math.floor(m / 12), r = m % 12; return (y ? y + ' yr' + (y > 1 ? 's' : '') : '') + (y && r ? ' ' : '') + (r ? r + ' mo' : ''); }
+    var now = new Date();
+    var ph = months(new Date(2023, 11, 1), now), hd = months(new Date(2019, 11, 1), new Date(2022, 10, 1));
+    var max = Math.max(ph, hd);
+    document.documentElement.style.setProperty('--ph', (ph / max * 100).toFixed(1) + '%');
+    document.documentElement.style.setProperty('--hd', (hd / max * 100).toFixed(1) + '%');
+    $('#tenPhL').textContent = fmt(ph) + ' and counting';
+    $('#tenHdL').textContent = fmt(hd);
+  })();
+
+  /* ================= INSTRUMENT ================= */
+  var tabs = $$('.tab'), panes = { 't-lat': $('#p-lat'), 't-fraud': $('#p-fraud'), 't-rel': $('#p-rel') };
+  var srcText = {
+    't-lat': 'Philips Healthcare &nbsp;·&nbsp; 10K+ scans / day',
+    't-fraud': 'HDFC Bank &nbsp;·&nbsp; 5M+ scores / day',
+    't-rel': 'Philips Healthcare &nbsp;·&nbsp; ML CI/CD'
+  };
+  function selectTab(t, focus) {
+    tabs.forEach(function (x) {
+      var on = x === t;
+      x.setAttribute('aria-selected', on ? 'true' : 'false');
+      x.tabIndex = on ? 0 : -1;
+      panes[x.id].hidden = !on;
+    });
+    $('#scopeSrc').innerHTML = srcText[t.id];
+    if (focus) t.focus();
+    if (t.id === 't-lat') drawTrace();
+    if (t.id === 't-rel') runPipeline();
+    fraud.active = t.id === 't-fraud';
+    if (fraud.active) fraud.start();
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { selectTab(t); });
+    t.addEventListener('keydown', function (e) {
+      var k = e.key, j = null;
+      if (k === 'ArrowRight') j = (i + 1) % tabs.length;
+      if (k === 'ArrowLeft') j = (i - 1 + tabs.length) % tabs.length;
+      if (k === 'Home') j = 0;
+      if (k === 'End') j = tabs.length - 1;
+      if (j !== null) { e.preventDefault(); selectTab(tabs[j], true); }
+    });
+  });
+
+  /* --- pane 1: latency trace --- */
+  var trace = $('#trace'), head = $('#head'), halo = $('#halo'), ms = $('#ms');
+  var Y_TOP = 46, Y_BOT = 206, MS_TOP = 2000, MS_BOT = 150, traceRaf = null;
+  function msAt(y) { var t = (y - Y_TOP) / (Y_BOT - Y_TOP); return Math.round(MS_TOP - Math.min(1, Math.max(0, t)) * (MS_TOP - MS_BOT)); }
+  function place(p) { head.setAttribute('cx', p.x); head.setAttribute('cy', p.y); halo.setAttribute('cx', p.x); halo.setAttribute('cy', p.y); }
+  function settle() { trace.style.strokeDashoffset = '0'; place(trace.getPointAtLength(trace.getTotalLength())); ms.textContent = '150'; }
   function drawTrace() {
+    cancelAnimationFrame(traceRaf);
     var len = trace.getTotalLength();
     trace.style.strokeDasharray = len + ' ' + len;
     trace.style.strokeDashoffset = len;
-
     if (reduce) { settle(); return; }
-
     var DUR = 1750, start = null;
     function frame(now) {
       if (start === null) start = now;
-      var t = Math.min(1, (now - start) / DUR);
-      var e = 1 - Math.pow(1 - t, 3);
+      var t = Math.min(1, (now - start) / DUR), e = 1 - Math.pow(1 - t, 3);
       trace.style.strokeDashoffset = len * (1 - e);
-      var p = trace.getPointAtLength(len * e);
-      head.setAttribute('cx', p.x); head.setAttribute('cy', p.y);
-      halo.setAttribute('cx', p.x); halo.setAttribute('cy', p.y);
-      ms.textContent = msAt(p.y);
-      if (t < 1) requestAnimationFrame(frame); else settle();
+      var p = trace.getPointAtLength(len * e); place(p); ms.textContent = msAt(p.y);
+      if (t < 1) traceRaf = requestAnimationFrame(frame); else settle();
     }
-    requestAnimationFrame(frame);
+    traceRaf = requestAnimationFrame(frame);
+  }
+  $('#replay').addEventListener('click', drawTrace);
+
+  /* --- pane 2: fraud stream --- */
+  var fraud = (function () {
+    var NS = 'http://www.w3.org/2000/svg', g = $('#txs'), scoredEl = $('#scored');
+    var RATE = 5000000 / 86400;          /* scores per second at 5M/day */
+    var t0 = performance.now();
+    var dots = [], raf = null, last = 0, spawnAcc = 0, inView = true;
+    var X0 = 66, X1 = 946, SPEED = 120;   /* px per second */
+    function yFor(msv) { return 236 - (msv / 120) * 190; }
+    function latency() {
+      /* skewed toward the low end, always under the 100 ms budget */
+      var u = Math.random(), v = Math.random();
+      return Math.min(96, 14 + Math.pow(u, 1.8) * 62 + v * 12);
+    }
+    function spawn(x) {
+      var flag = Math.random() < 0.025;
+      var c = document.createElementNS(NS, 'circle');
+      c.setAttribute('r', flag ? 3.6 : 2.4);
+      c.setAttribute('class', 'tx' + (flag ? ' flag' : ''));
+      var y = yFor(latency());
+      c.setAttribute('cy', y.toFixed(1)); c.setAttribute('cx', x.toFixed(1));
+      g.appendChild(c);
+      var ring = null;
+      if (flag) {
+        ring = document.createElementNS(NS, 'circle');
+        ring.setAttribute('class', 'ring'); ring.setAttribute('r', '8'); ring.setAttribute('cy', y.toFixed(1)); ring.setAttribute('cx', x.toFixed(1));
+        g.appendChild(ring);
+      }
+      dots.push({ el: c, ring: ring, x: x });
+    }
+    function seed() {
+      g.textContent = ''; dots = [];
+      for (var x = X0 + 4; x < X1; x += 8 + Math.random() * 10) spawn(x);
+    }
+    function updateCount() {
+      var n = Math.floor((performance.now() - t0) / 1000 * RATE);
+      scoredEl.textContent = n.toLocaleString('en-US');
+    }
+    function frame(now) {
+      raf = null;
+      if (!api.active || !inView || document.hidden) return;
+      var dt = last ? Math.min(0.05, (now - last) / 1000) : 0; last = now;
+      spawnAcc += dt * 9;                 /* visual spawn rate, not the real one */
+      while (spawnAcc >= 1) { spawnAcc -= 1; spawn(X1 - Math.random() * 4); }
+      for (var i = dots.length - 1; i >= 0; i--) {
+        var d = dots[i]; d.x -= SPEED * dt;
+        if (d.x < X0) { d.el.remove(); if (d.ring) d.ring.remove(); dots.splice(i, 1); continue; }
+        d.el.setAttribute('cx', d.x.toFixed(1));
+        if (d.ring) d.ring.setAttribute('cx', d.x.toFixed(1));
+      }
+      updateCount();
+      raf = requestAnimationFrame(frame);
+    }
+    var api = {
+      active: false,
+      start: function () {
+        if (!dots.length) seed();
+        updateCount();
+        if (reduce) return;
+        last = 0;
+        if (!raf) raf = requestAnimationFrame(frame);
+      }
+    };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { inView = es[0].isIntersecting; if (inView && api.active) api.start(); }).observe($('#fsvg'));
+    }
+    document.addEventListener('visibilitychange', function () { if (!document.hidden && api.active) api.start(); });
+    setInterval(function () { if (api.active && (reduce || document.hidden === false)) updateCount(); }, 1000);
+    return api;
+  })();
+
+  /* --- pane 3: release pipeline --- */
+  var pipeT = [];
+  function runPipeline() {
+    pipeT.forEach(clearTimeout); pipeT = [];
+    var bars = $$('#p-rel .bar span');
+    bars.forEach(function (b) { b.style.width = '0'; });
+    var steps = $$('#steps .step');
+    steps.forEach(function (s) { s.classList.remove('on', 'done'); });
+    requestAnimationFrame(function () { requestAnimationFrame(function () { bars.forEach(function (b) { b.style.width = b.dataset.w; }); }); });
+    if (reduce) { steps.forEach(function (s) { s.classList.add('done'); }); return; }
+    steps.forEach(function (s, i) {
+      pipeT.push(setTimeout(function () {
+        if (i > 0) { steps[i - 1].classList.remove('on'); steps[i - 1].classList.add('done'); }
+        s.classList.add('on');
+        if (i === steps.length - 1) pipeT.push(setTimeout(function () { s.classList.remove('on'); s.classList.add('done'); }, 420));
+      }, 300 + i * 340));
+    });
+  }
+  $('#runPipe').addEventListener('click', runPipeline);
+
+  /* kick the trace once the hero panel is on screen */
+  var scope = $('.scope');
+  if (!('IntersectionObserver' in window)) { setTimeout(drawTrace, 400); }
+  else {
+    var io3 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { setTimeout(drawTrace, 260); io3.unobserve(e.target); } });
+    }, { threshold: 0.25 });
+    io3.observe(scope);
   }
 
+  /* ---------------- counters ---------------- */
   function runCounter(el) {
-    var to = parseFloat(el.dataset.to);
-    var dec = parseInt(el.dataset.dec || '0', 10);
+    var to = parseFloat(el.dataset.to), dec = parseInt(el.dataset.dec || '0', 10);
     if (reduce) { el.textContent = to.toFixed(dec); return; }
     var DUR = 1200, start = null;
     function frame(now) {
       if (start === null) start = now;
-      var t = Math.min(1, (now - start) / DUR);
-      var e = 1 - Math.pow(1 - t, 3);
+      var t = Math.min(1, (now - start) / DUR), e = 1 - Math.pow(1 - t, 3);
       el.textContent = (to * e).toFixed(dec);
       if (t < 1) requestAnimationFrame(frame); else el.textContent = to.toFixed(dec);
     }
     requestAnimationFrame(frame);
   }
-
-  var strip = document.getElementById('strip');
-  if (!('IntersectionObserver' in window)) {
-    strip.querySelectorAll('.cnt').forEach(runCounter);
-  } else {
+  var strip = $('#strip');
+  if (!('IntersectionObserver' in window)) { $$('.cnt', strip).forEach(runCounter); }
+  else {
     var io2 = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          e.target.querySelectorAll('.cnt').forEach(runCounter);
-          io2.unobserve(e.target);
-        }
-      });
+      entries.forEach(function (e) { if (e.isIntersecting) { $$('.cnt', e.target).forEach(runCounter); io2.unobserve(e.target); } });
     }, { threshold: 0.4 });
     io2.observe(strip);
   }
 
-  var scope = document.querySelector('.scope');
-  if (!('IntersectionObserver' in window)) {
-    setTimeout(drawTrace, 400);
-  } else {
-    var io3 = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { setTimeout(drawTrace, 260); io3.unobserve(e.target); }
-      });
-    }, { threshold: 0.25 });
-    io3.observe(scope);
+  /* ================= THE LOOP ================= */
+  var STAGES = [
+    { key: 'data', name: 'Data', line: 'Make the inputs trustworthy before anyone trains on them.',
+      items: [
+        { m: '500GB+', co: 'Philips', t: 'of imaging data per training run, through Spark and Kafka pipelines with schema validation and automated data-quality gates feeding SageMaker. Every run reproducible.' },
+        { m: '+22% F1', co: 'HDFC Bank', t: 'from Pandas and Dask feature-engineering pipelines over 1M+ labeled transactions.' } ] },
+    { key: 'train', name: 'Train', line: 'Train where the data lives, and with the people who know it.',
+      items: [
+        { m: '5 hospitals', co: 'Philips', t: 'trained across with zero patient images moved, via the client-side training and evaluation pipeline for a Flower federated learning pilot.' },
+        { m: '−30% FP', co: 'HDFC Bank', t: 'false-positive alerts at 95% recall, productionizing an LSTM, Transformer and graph neural network ensemble with data scientists and fraud analysts.' } ] },
+    { key: 'ship', name: 'Ship', line: 'Releases should be boring, scheduled and reversible.',
+      items: [
+        { m: '4 wk → 1', co: 'Philips', t: 'release-candidate turnaround with ML CI/CD: GitHub Actions, Jenkins, Docker, Kubernetes, an MLflow registry and regression tests on a locked validation set.' },
+        { m: 'automated', co: 'HDFC Bank', t: 'Kubeflow retraining pipelines with MLflow tracking and versioning turned model updates into scheduled releases.' } ] },
+    { key: 'serve', name: 'Serve', line: 'Fast enough that nobody waits, steady enough that nobody notices.',
+      items: [
+        { m: '150 ms', co: 'Philips', t: 'per scan, down from 2s, with TensorRT models served as containerized FastAPI on on-prem GPU edge devices.' },
+        { m: '<100 ms', co: 'HDFC Bank', t: '5M+ fraud scores a day at 99.9% uptime on containerized endpoints on Azure ML and Kubernetes.' } ] },
+    { key: 'monitor', name: 'Monitor', line: 'Catch the drift before the users do.',
+      items: [
+        { m: '10K+/day', co: 'Philips', t: 'scans watched in Prometheus and Grafana: data drift, service health and per-subgroup model performance.' },
+        { m: 'rollback', co: 'HDFC Bank', t: 'feature and score drift detection wired to automated rollback.' } ] },
+    { key: 'explain', name: 'Explain', line: 'Every output has to survive someone asking "why?"',
+      items: [
+        { m: '−40%', co: 'HDFC Bank', t: 'fraud investigation time, with SHAP explanations on every flagged transaction and case summaries in the format RBI auditors require.' },
+        { m: '−35%', co: 'Philips', t: 'radiologist review time in an LLM pilot: LangSmith tracing and automated checks for unsupported statements on a LangGraph report drafter.' } ] }
+  ];
+  var dial = $('#dial'), card = $('#stageCard'), arc = $('#arc'), hubI = $('#hubI'), CIRC = 2 * Math.PI * 40;
+  var POS = [[50, 10], [84.64, 30], [84.64, 70], [50, 90], [15.36, 70], [15.36, 30]];
+  var nodes = STAGES.map(function (s, i) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'node';
+    b.style.left = POS[i][0] + '%'; b.style.top = POS[i][1] + '%';
+    b.innerHTML = '<b>0' + (i + 1) + '</b>' + s.name;
+    b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', function () { stopAuto(); setStage(i); });
+    dial.appendChild(b);
+    return b;
+  });
+  var cur = -1;
+  function setStage(i) {
+    if (i === cur) return;
+    cur = i;
+    /* progress arc: how far round the loop this stage sits */
+    arc.setAttribute('stroke-dasharray', (i / 6 * CIRC).toFixed(2) + ' ' + CIRC.toFixed(2));
+    nodes.forEach(function (n, j) { n.setAttribute('aria-pressed', j === i ? 'true' : 'false'); });
+    hubI.textContent = '0' + (i + 1);
+    var s = STAGES[i];
+    card.innerHTML =
+      '<div class="fade"><p class="st">Stage 0' + (i + 1) + ' of 06</p><h3>' + s.name + '</h3><p class="ln">' + s.line + '</p>' +
+      '<div class="its">' + s.items.map(function (it) {
+        return '<div class="it"><span class="m">' + it.m + '</span><span class="co">' + it.co + '</span><p>' + it.t + '</p></div>';
+      }).join('') + '</div>' +
+      '<button class="mini go" type="button" data-stage-go="' + s.key + '">See it in the record &#8594;</button></div>';
   }
+  card.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-stage-go]');
+    if (!b) return;
+    stopAuto();
+    setFilter({ stage: b.dataset.stageGo, stageName: STAGES[cur].name });
+    document.getElementById('record').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  });
+  setStage(0);
+  var auto = null;
+  function stopAuto() { clearInterval(auto); auto = null; }
+  if (!reduce && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      if (es[0].isIntersecting && auto === null && !dial.dataset.touched) {
+        auto = setInterval(function () { setStage((cur + 1) % 6); }, 4200);
+      } else if (!es[0].isIntersecting) { stopAuto(); }
+    }, { threshold: 0.35 }).observe(dial);
+  }
+  dial.addEventListener('pointerdown', function () { dial.dataset.touched = '1'; stopAuto(); });
+  card.addEventListener('pointerenter', stopAuto);
+
+  /* ================= RECORD FILTERS ================= */
+  var bullets = $$('.bullets li'), jobs = $$('.job'), qEl = $('#q'), fstat = $('#fstat'), emptyEl = $('#empty');
+  var state = { co: 'all', q: '', tool: null, stage: null, stageName: null };
+
+  /* original markup, so highlighting can be undone cleanly */
+  bullets.forEach(function (li) {
+    li._tools = (li.dataset.tools || '').split('|').filter(Boolean);
+    li._concepts = (li.dataset.concepts || '').split('|').filter(Boolean);
+    li._stages = (li.dataset.stage || '').split(' ').filter(Boolean);
+    var text = document.createElement('span'); text.className = 'txt';
+    while (li.firstChild) text.appendChild(li.firstChild);
+    li.appendChild(text);
+    li._html = text.innerHTML;
+    li._plain = (text.textContent + ' ' + li._tools.join(' ') + ' ' + li._concepts.join(' ')).toLowerCase();
+    if (li._tools.length) {
+      var ch = document.createElement('div'); ch.className = 'chips';
+      li._tools.forEach(function (t) {
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t; b.dataset.tool = t;
+        b.addEventListener('click', function () { setFilter({ tool: state.tool === t ? null : t }); });
+        ch.appendChild(b);
+      });
+      li.appendChild(ch);
+    }
+  });
+
+  function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  function highlight(li, q) {
+    var span = $('.txt', li);
+    if (!q) { span.innerHTML = li._html; return; }
+    /* highlight only inside text nodes */
+    span.innerHTML = li._html;
+    var re = new RegExp('(' + esc(q) + ')', 'ig'), test = new RegExp(esc(q), 'i');
+    var walker = document.createTreeWalker(span, NodeFilter.SHOW_TEXT, null), nodesT = [], n;
+    while ((n = walker.nextNode())) nodesT.push(n);
+    nodesT.forEach(function (tn) {
+      if (!test.test(tn.nodeValue)) return;
+      var frag = document.createDocumentFragment();
+      tn.nodeValue.split(re).forEach(function (part, k) {
+        if (k % 2) { var m = document.createElement('mark'); m.textContent = part; frag.appendChild(m); }
+        else if (part) frag.appendChild(document.createTextNode(part));
+      });
+      tn.parentNode.replaceChild(frag, tn);
+    });
+  }
+
+  function apply() {
+    var q = state.q.trim().toLowerCase(), any = !!(q || state.tool || state.stage), shown = 0, total = 0;
+    jobs.forEach(function (j) { j.classList.toggle('off', state.co !== 'all' && j.dataset.co !== state.co); });
+    bullets.forEach(function (li) {
+      var job = li.closest('.job');
+      if (job.classList.contains('off')) return;
+      total++;
+      var ok = true;
+      if (state.tool) ok = ok && (li._tools.indexOf(state.tool) > -1 || li._concepts.indexOf(state.tool) > -1);
+      if (state.stage) ok = ok && li._stages.indexOf(state.stage) > -1;
+      if (q) ok = ok && li._plain.indexOf(q) > -1;
+      li.classList.toggle('hit', any && ok);
+      li.classList.toggle('dim', any && !ok);
+      if (ok) shown++;
+      highlight(li, q && ok ? state.q.trim() : '');
+      $$('.chip', li).forEach(function (c) { c.classList.toggle('on', c.dataset.tool === state.tool); });
+    });
+    jobs.forEach(function (j) {
+      var hits = $$('.bullets li', j).filter(function (li) { return !li.classList.contains('dim'); }).length;
+      j.classList.toggle('quiet', any && hits === 0);
+    });
+    $$('.seg button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.co === state.co ? 'true' : 'false'); });
+
+    var parts = [];
+    if (state.tool) parts.push('<button type="button" class="pill" data-x="tool">tool: ' + state.tool + ' &#10005;</button>');
+    if (state.stage) parts.push('<button type="button" class="pill" data-x="stage">stage: ' + state.stageName + ' &#10005;</button>');
+    if (q) parts.push('<button type="button" class="pill" data-x="q">“' + state.q.trim().replace(/[<>&]/g, '') + '” &#10005;</button>');
+    fstat.innerHTML = any
+      ? 'Showing <b>' + shown + '</b> of ' + total + ' results ' + parts.join(' ')
+      : '<span><b>' + total + '</b> results across ' + (state.co === 'all' ? 'both roles' : 'this role') + '. Click a tool chip to filter.</span>';
+    emptyEl.classList.toggle('show', any && shown === 0);
+  }
+  function setFilter(patch) {
+    /* a new tool or stage filter replaces the other one, so results never silently stack to zero */
+    if (patch.tool) { state.stage = null; state.stageName = null; state.q = ''; }
+    if (patch.stage) { state.tool = null; state.q = ''; }
+    for (var k in patch) state[k] = patch[k];
+    if (patch.tool !== undefined || patch.stage !== undefined) state.co = 'all';
+    if (!('q' in patch) && qEl.value !== state.q) qEl.value = state.q;
+    apply();
+  }
+  fstat.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-x]'); if (!b) return;
+    var x = b.dataset.x;
+    if (x === 'tool') setFilter({ tool: null });
+    if (x === 'stage') setFilter({ stage: null, stageName: null });
+    if (x === 'q') { qEl.value = ''; setFilter({ q: '' }); }
+  });
+  emptyEl.addEventListener('click', function (e) {
+    if (!e.target.closest('[data-clear]')) return;
+    qEl.value = ''; setFilter({ q: '', tool: null, stage: null, stageName: null, co: 'all' });
+  });
+  $$('.seg button').forEach(function (b) { b.addEventListener('click', function () { state.co = b.dataset.co; apply(); }); });
+  var qT;
+  qEl.addEventListener('input', function () { clearTimeout(qT); qT = setTimeout(function () { setFilter({ q: qEl.value }); }, 90); });
+  apply();
+
+  /* ================= TOOLCHAIN ================= */
+  function countFor(tool) {
+    return bullets.filter(function (li) { return li._tools.indexOf(tool) > -1 || li._concepts.indexOf(tool) > -1; }).length;
+  }
+  $$('.grp').forEach(function (g) {
+    var tags = $$('.tag', g);
+    $('.c', g).textContent = tags.length;
+    tags.forEach(function (t) {
+      var n = countFor(t.dataset.tool);
+      if (n) {
+        var s = document.createElement('sup'); s.textContent = n; t.appendChild(s);
+        t.setAttribute('aria-label', t.dataset.tool + ', used in ' + n + ' result' + (n > 1 ? 's' : '') + '. Show in record.');
+        t.addEventListener('click', function () {
+          setFilter({ tool: t.dataset.tool });
+          document.getElementById('record').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+        });
+      } else {
+        t.disabled = true;
+      }
+    });
+  });
+
+  /* ================= LOCAL CLOCK ================= */
+  var clock = $('#clock');
+  function tickClock() {
+    try {
+      clock.textContent = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago', timeZoneName: 'short' }).format(new Date());
+    } catch (e) { clock.textContent = 'Central Time'; }
+  }
+  tickClock(); setInterval(tickClock, 30000);
+
+  /* ================= COMMAND PALETTE ================= */
+  var pal = $('#pal'), palq = $('#palq'), pall = $('#pall'), palBtn = $('#palBtn'), lastFocus = null, sel = 0, list = [];
+  var isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+  $('#kbdHint').textContent = isMac ? '⌘K' : 'Ctrl K';
+  function go(id) { return function () { document.getElementById(id).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); }; }
+  function open(url) { return function () { window.open(url, '_blank', 'noopener'); }; }
+  var CMDS = [
+    { t: 'Go to the loop', k: 'section', run: go('loop') },
+    { t: 'Go to production record', k: 'section', run: go('record') },
+    { t: 'Go to toolchain', k: 'section', run: go('toolchain') },
+    { t: 'Go to credentials', k: 'section', run: go('credentials') },
+    { t: 'Go to contact', k: 'section', run: go('contact') },
+    { t: 'Copy email address', k: 'action', run: function () { copy(EMAIL); } },
+    { t: 'Send an email', k: 'action', run: function () { location.href = 'mailto:' + EMAIL; } },
+    { t: 'Download résumé', k: 'action', run: function () { location.href = 'resume.pdf'; } },
+    { t: 'Open LinkedIn', k: 'link', run: open('https://www.linkedin.com/in/sivaprasadmandalapu/') },
+    { t: 'Open GitHub', k: 'link', run: open('https://github.com/SNVVPRASAD') },
+    { t: 'Show latency instrument', k: 'demo', run: function () { go('top')(); selectTab($('#t-lat')); } },
+    { t: 'Show fraud scoring stream', k: 'demo', run: function () { go('top')(); selectTab($('#t-fraud')); } },
+    { t: 'Run the release pipeline', k: 'demo', run: function () { go('top')(); selectTab($('#t-rel')); } }
+  ];
+  STAGES.forEach(function (s, i) { CMDS.push({ t: 'Loop stage: ' + s.name, k: 'stage', run: function () { go('loop')(); stopAuto(); setStage(i); } }); });
+  $$('.tag:not(:disabled)').forEach(function (t) {
+    CMDS.push({ t: 'Filter record by ' + t.dataset.tool, k: 'filter', run: function () { setFilter({ tool: t.dataset.tool }); go('record')(); } });
+  });
+  function render() {
+    var q = palq.value.trim().toLowerCase();
+    list = CMDS.filter(function (c) {
+      if (!q) return c.k !== 'filter';
+      var hay = (c.t + ' ' + c.k).toLowerCase();
+      return q.split(/\s+/).every(function (w) { return hay.indexOf(w) > -1; });
+    });
+    sel = Math.min(sel, Math.max(0, list.length - 1));
+    pall.innerHTML = list.length ? list.map(function (c, i) {
+      return '<li role="option" id="po' + i + '" data-i="' + i + '" aria-selected="' + (i === sel) + '">' + c.t + '<small>' + c.k + '</small></li>';
+    }).join('') : '<li class="none" role="option" aria-disabled="true">No matches. Try a tool name like MLflow.</li>';
+    palq.setAttribute('aria-activedescendant', list.length ? 'po' + sel : '');
+    var a = $('[aria-selected="true"]', pall); if (a) a.scrollIntoView({ block: 'nearest' });
+  }
+  function openPal() { lastFocus = document.activeElement; pal.hidden = false; palq.value = ''; sel = 0; render(); palq.focus(); document.body.style.overflow = 'hidden'; }
+  function closePal() { pal.hidden = true; document.body.style.overflow = ''; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+  function runSel(i) { var c = list[i]; if (!c) return; closePal(); setTimeout(c.run, 30); }
+  palBtn.addEventListener('click', openPal);
+  pal.addEventListener('click', function (e) { if (e.target === pal) closePal(); });
+  pall.addEventListener('click', function (e) { var li = e.target.closest('li[data-i]'); if (li) runSel(+li.dataset.i); });
+  pall.addEventListener('mousemove', function (e) {
+    var li = e.target.closest('li[data-i]'); if (!li || +li.dataset.i === sel) return;
+    sel = +li.dataset.i; $$('li', pall).forEach(function (x, i) { x.setAttribute('aria-selected', i === sel); });
+  });
+  palq.addEventListener('input', function () { sel = 0; render(); });
+  palq.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowDown') { e.preventDefault(); sel = (sel + 1) % Math.max(1, list.length); render(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); sel = (sel - 1 + list.length) % Math.max(1, list.length); render(); }
+    else if (e.key === 'Enter') { e.preventDefault(); runSel(sel); }
+    else if (e.key === 'Escape') { e.preventDefault(); closePal(); }
+    else if (e.key === 'Tab') { e.preventDefault(); }
+  });
+  document.addEventListener('keydown', function (e) {
+    var typing = /INPUT|TEXTAREA|SELECT/.test((document.activeElement || {}).tagName || '');
+    if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); pal.hidden ? openPal() : closePal(); }
+    else if (e.key === '/' && !typing && pal.hidden) { e.preventDefault(); openPal(); }
+    else if (e.key === 'Escape' && !pal.hidden) { closePal(); }
+  });
 })();
 </script>
 </body>
