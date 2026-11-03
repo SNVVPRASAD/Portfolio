@@ -804,7 +804,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
     function months(a, b) { return (b.getFullYear() - a.getFullYear()) * 12 + (b.getMonth() - a.getMonth()) + 1; }
     function fmt(m) { var y = Math.floor(m / 12), r = m % 12; return (y ? y + ' yr' + (y > 1 ? 's' : '') : '') + (y && r ? ' ' : '') + (r ? r + ' mo' : ''); }
     var now = new Date();
-    var ph = months(new Date(2023, 11, 1), now), hd = months(new Date(2019, 11, 1), new Date(2022, 10, 1));
+    var ph = months(new Date(2024, 11, 1), now), hd = months(new Date(2019, 11, 1), new Date(2022, 10, 1));
     var max = Math.max(ph, hd);
     document.documentElement.style.setProperty('--ph', (ph / max * 100).toFixed(1) + '%');
     document.documentElement.style.setProperty('--hd', (hd / max * 100).toFixed(1) + '%');
